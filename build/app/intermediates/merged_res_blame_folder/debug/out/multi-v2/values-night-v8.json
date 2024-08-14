@@ -4,7 +4,7 @@
             "outputFile": "com.mycompany.redthread.app-mergeDebugResources-12:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\zyaus\\redthread\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\zyaus\\twine\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

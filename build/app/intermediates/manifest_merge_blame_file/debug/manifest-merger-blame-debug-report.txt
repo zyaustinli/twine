@@ -12,8 +12,8 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:4:5-66
-14-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:4:22-64
+14-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:4:5-66
+14-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:4:22-64
 15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 15-->[com.google.android.exoplayer:exoplayer-core:2.18.7] C:\Users\zyaus\.gradle\caches\transforms-3\82c785319c144e064c8df5b9158ea7d9\transformed\jetified-exoplayer-core-2.18.7\AndroidManifest.xml:24:5-79
 15-->[com.google.android.exoplayer:exoplayer-core:2.18.7] C:\Users\zyaus\.gradle\caches\transforms-3\82c785319c144e064c8df5b9158ea7d9\transformed\jetified-exoplayer-core-2.18.7\AndroidManifest.xml:24:22-76
@@ -30,32 +30,32 @@
 21-->[androidx.core:core:1.10.1] C:\Users\zyaus\.gradle\caches\transforms-3\e4f41c42c00a92799a5890ed5f8f659f\transformed\core-1.10.1\AndroidManifest.xml:26:22-94
 22
 23    <application
-23-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:7:5-61:19
+23-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:7:5-61:19
 24        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 24-->[androidx.core:core:1.10.1] C:\Users\zyaus\.gradle\caches\transforms-3\e4f41c42c00a92799a5890ed5f8f659f\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
 25        android:debuggable="true"
 26        android:icon="@mipmap/ic_launcher"
-26-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:10:9-43
+26-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:10:9-43
 27        android:label="Redthread"
-27-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:8:9-34
+27-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:8:9-34
 28        android:requestLegacyExternalStorage="true" >
-28-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:11:9-52
+28-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:11:9-52
 29        <activity
-29-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:13:9-51:20
+29-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:13:9-51:20
 30            android:name="com.mycompany.redthread.MainActivity"
-30-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:14:13-41
+30-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:14:13-41
 31            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-31-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:18:13-163
+31-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:18:13-163
 32            android:exported="true"
-32-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:15:13-36
+32-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:15:13-36
 33            android:hardwareAccelerated="true"
-33-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:19:13-47
+33-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:19:13-47
 34            android:launchMode="singleTop"
-34-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:16:13-43
+34-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:16:13-43
 35            android:theme="@style/LaunchTheme"
-35-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:17:13-47
+35-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:17:13-47
 36            android:windowSoftInputMode="adjustResize" >
-36-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:20:13-55
+36-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:20:13-55
 37
 38            <!--
 39                 Specifies an Android theme to apply to this Activity as soon as
@@ -64,11 +64,11 @@
 42                 to determine the Window background behind the Flutter UI.
 43            -->
 44            <meta-data
-44-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:25:13-28:17
+44-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:25:13-28:17
 45                android:name="io.flutter.embedding.android.NormalTheme"
-45-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:26:15-70
+45-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:26:15-70
 46                android:resource="@style/NormalTheme" />
-46-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:27:15-52
+46-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:27:15-52
 47            <!--
 48                 Displays an Android View that continues showing the launch screen
 49                 Drawable until Flutter paints its first frame, then this splash
@@ -77,50 +77,50 @@
 52                 Flutter's first frame.
 53            -->
 54            <meta-data
-54-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:34:13-37:17
+54-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:34:13-37:17
 55                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-55-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:35:15-79
+55-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:35:15-79
 56                android:resource="@drawable/launch_background" />
-56-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:36:15-61
+56-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:36:15-61
 57
 58            <intent-filter>
-58-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:38:13-41:29
+58-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:38:13-41:29
 59                <action android:name="android.intent.action.MAIN" />
-59-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:39:17-68
-59-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:39:25-66
+59-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:39:17-68
+59-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:39:25-66
 60
 61                <category android:name="android.intent.category.LAUNCHER" />
-61-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:40:17-76
-61-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:40:27-74
+61-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:40:17-76
+61-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:40:27-74
 62            </intent-filter>
 63            <!-- Deep linking -->
 64            <meta-data
-64-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:43:13-90
+64-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:43:13-90
 65                android:name="flutter_deeplinking_enabled"
-65-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:43:24-66
+65-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:43:24-66
 66                android:value="true" />
-66-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:43:67-87
+66-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:43:67-87
 67
 68            <intent-filter android:autoVerify="true" >
-68-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:44:13-49:29
-68-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:44:28-53
+68-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:44:13-49:29
+68-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:44:28-53
 69                <action android:name="android.intent.action.VIEW" />
-69-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:45:17-69
-69-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:45:25-66
+69-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:45:17-69
+69-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:45:25-66
 70
 71                <category android:name="android.intent.category.DEFAULT" />
-71-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:46:17-76
-71-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:46:27-73
+71-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:46:17-76
+71-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:46:27-73
 72                <category android:name="android.intent.category.BROWSABLE" />
-72-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:47:17-78
-72-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:47:27-75
+72-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:47:17-78
+72-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:47:27-75
 73
 74                <data
-74-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:48:17-81
+74-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:48:17-81
 75                    android:host="redthread.com"
-75-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:48:50-78
+75-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:48:50-78
 76                    android:scheme="redthread" />
-76-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:48:23-49
+76-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:48:23-49
 77            </intent-filter>
 78        </activity>
 79
@@ -129,20 +129,20 @@
 82             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 83        -->
 84        <meta-data
-84-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:55:9-57:33
+84-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:55:9-57:33
 85            android:name="flutterEmbedding"
-85-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:56:13-44
+85-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:56:13-44
 86            android:value="2" />
-86-->C:\Users\zyaus\redthread\android\app\src\main\AndroidManifest.xml:57:13-30
+86-->C:\Users\zyaus\twine\android\app\src\main\AndroidManifest.xml:57:13-30
 87
 88        <activity
-88-->[:url_launcher_android] C:\Users\zyaus\redthread\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
+88-->[:url_launcher_android] C:\Users\zyaus\twine\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
 89            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
-89-->[:url_launcher_android] C:\Users\zyaus\redthread\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
+89-->[:url_launcher_android] C:\Users\zyaus\twine\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
 90            android:exported="false"
-90-->[:url_launcher_android] C:\Users\zyaus\redthread\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
+90-->[:url_launcher_android] C:\Users\zyaus\twine\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
 91            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-91-->[:url_launcher_android] C:\Users\zyaus\redthread\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
+91-->[:url_launcher_android] C:\Users\zyaus\twine\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
 92
 93        <uses-library
 93-->[androidx.window:window:1.0.0-beta04] C:\Users\zyaus\.gradle\caches\transforms-3\11e656656b149d11d4f6a7d150c56188\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40

@@ -55,7 +55,26 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\zyaus\\redthread\\android\\app\\src\\main\\res\\values\\strings.xml",
+                    "source": "C:\\Users\\zyaus\\twine\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "3,14",
+                        "startColumns": "4,4",
+                        "startOffsets": "173,816",
+                        "endLines": "7,16",
+                        "endColumns": "12,12",
+                        "endOffsets": "465,980"
+                    },
+                    "to": {
+                        "startLines": "123,127",
+                        "startColumns": "4,4",
+                        "startOffsets": "7515,7696",
+                        "endLines": "126,129",
+                        "endColumns": "12,12",
+                        "endOffsets": "7691,7860"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\zyaus\\twine\\android\\app\\src\\main\\res\\values\\strings.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -107,25 +126,6 @@
                         "endLines": "7,8,9,10,80,148,152,269,281,289",
                         "endColumns": "11,59,51,44,59,24,24,24,24,24",
                         "endOffsets": "289,349,401,446,4910,8952,9083,13130,13570,13879"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\zyaus\\redthread\\android\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "3,14",
-                        "startColumns": "4,4",
-                        "startOffsets": "173,816",
-                        "endLines": "7,16",
-                        "endColumns": "12,12",
-                        "endOffsets": "465,980"
-                    },
-                    "to": {
-                        "startLines": "123,127",
-                        "startColumns": "4,4",
-                        "startOffsets": "7515,7696",
-                        "endLines": "126,129",
-                        "endColumns": "12,12",
-                        "endOffsets": "7691,7860"
                     }
                 }
             ]
