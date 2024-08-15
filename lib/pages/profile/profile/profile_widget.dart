@@ -1,3 +1,5 @@
+import 'package:redthread/components/create_outfit_search_widget.dart';
+import 'package:redthread/index.dart';
 import 'package:redthread/pages/profile/collection_pages/collection_view/collection_view_widget.dart';
 
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -1015,8 +1017,11 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                   size: 16.0,
                                                 ),
                                                 onPressed: () {
-                                                  print(
-                                                      'IconButton pressed ...');
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const CreateOutfitWidget()));
                                                 },
                                               ),
                                               FlutterFlowIconButton(
