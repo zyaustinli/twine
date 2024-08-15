@@ -11,6 +11,14 @@ class InboxModel extends FlutterFlowModel<InboxWidget> {
   int get tabBarCurrentIndex =>
       tabBarController != null ? tabBarController!.index : 0;
 
+  TabController? chatTabController;
+  int get chatTabBarCurrentIndex =>
+      chatTabController != null ? chatTabController!.index : 0;
+      
+  TabController? activityTabController;
+  int get activityCurrentIndex =>
+      activityTabController != null ? activityTabController!.index : 0;
+
   // State field(s) for TextField widget.
   final textFieldKey1 = GlobalKey();
   FocusNode? textFieldFocusNode1;
@@ -31,8 +39,11 @@ class InboxModel extends FlutterFlowModel<InboxWidget> {
   void dispose() {
     unfocusNode.dispose();
     tabBarController?.dispose();
+    chatTabController?.dispose();
+    activityTabController?.dispose();
     textFieldFocusNode1?.dispose();
-
+    textController1?.dispose();
     textFieldFocusNode2?.dispose();
+    textController2?.dispose();
   }
 }
