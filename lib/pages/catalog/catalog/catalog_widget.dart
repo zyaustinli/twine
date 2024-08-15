@@ -1,11 +1,6 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 
 import '../post_view/post_view_widget.dart'; 
@@ -53,11 +48,11 @@ class _CatalogWidgetState extends State<CatalogWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(10),
+          preferredSize: const Size.fromHeight(10),
           child: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
             automaticallyImplyLeading: false,
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 0,
           ),
@@ -65,14 +60,14 @@ class _CatalogWidgetState extends State<CatalogWidget> {
         body: SafeArea(
           top: true,
           child: Container(
-            decoration: BoxDecoration(),
+            decoration: const BoxDecoration(),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Align(
-                  alignment: AlignmentDirectional(0, 1),
+                  alignment: const AlignmentDirectional(0, 1),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                     child: Container(
                       width: double.infinity,
                       height: 40,
@@ -85,7 +80,7 @@ class _CatalogWidgetState extends State<CatalogWidget> {
                         ),
                       ),
                       child: Align(
-                        alignment: AlignmentDirectional(0, 1),
+                        alignment: const AlignmentDirectional(0, 1),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -97,7 +92,7 @@ class _CatalogWidgetState extends State<CatalogWidget> {
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(0),
                                   bottomRight: Radius.circular(0),
                                   topLeft: Radius.circular(0),
@@ -138,7 +133,7 @@ class _CatalogWidgetState extends State<CatalogWidget> {
                                   focusedBorder: InputBorder.none,
                                   errorBorder: InputBorder.none,
                                   focusedErrorBorder: InputBorder.none,
-                                  prefixIcon: Icon(
+                                  prefixIcon: const Icon(
                                     Icons.search_sharp,
                                   ),
                                 ),
@@ -250,10 +245,10 @@ class _CatalogWidgetState extends State<CatalogWidget> {
 
                 Expanded(
   child: Padding(
-    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
     child: GridView.builder(
       padding: EdgeInsets.zero,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
@@ -275,7 +270,7 @@ class _CatalogWidgetState extends State<CatalogWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PostViewWidget(), //will need to pass in backend data later, such as images, comments, post info, etc
+                builder: (context) => const PostViewWidget(), //will need to pass in backend data later, such as images, comments, post info, etc
               ),
             );
           },

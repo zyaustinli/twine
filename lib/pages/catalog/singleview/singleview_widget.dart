@@ -62,7 +62,6 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
             onPressed: () {
               print('IconButton pressed ...');
               Navigator.of(context).pop();
-
             },
           ),
           actions: const [],
@@ -153,8 +152,8 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                         ),
                       ),
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 5.0, 0.0, 0.0),
                         child: Container(
                           width: 325.0,
                           height: 110.0,
@@ -168,129 +167,152 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                             ),
                           ),
                           child: Column(
-  mainAxisSize: MainAxisSize.max,
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          width: 276,
-          height: 40,
-          decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondaryBackground,
-          ),
-          child: Align(
-            alignment: const AlignmentDirectional(-1, 0),
-            child: AutoSizeText(
-              'item_name',
-              textAlign: TextAlign.start,
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Inter',
-                    fontSize: 22,
-                    letterSpacing: 0,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-          ),
-        ),
-        FlutterFlowIconButton(
-          borderColor: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: 20,
-          borderWidth: 1,
-          buttonSize: 40,
-          fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-          icon: Icon(
-            Icons.keyboard_control_sharp,
-            color: FlutterFlowTheme.of(context).primaryText,
-            size: 24,
-          ),
-          onPressed: () {
-            print('IconButton pressed ...');
-          },
-        ),
-      ],
-    ),
-    Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-      child: Container(
-        width: 90,
-        height: 25,
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).primaryText,
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(30),
-            bottomRight: Radius.circular(30),
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Align(
-              alignment: const AlignmentDirectional(-1, 0),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(24),
-                  child: Image.network(
-                    'https://picsum.photos/seed/592/600',
-                    width: 20,
-                    height: 20,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(3, 0, 2, 0),
-              child: Text(
-                'BRAND',
-                textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      fontSize: 10,
-                      letterSpacing: 0,
-                    ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-    Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-      child: Container(
-        decoration: BoxDecoration(),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              '\$795.99',
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Bebas Neue',
-                    fontSize: 18,
-                    letterSpacing: 0,
-                  ),
-            ),
-            wrapWithModel(
-              model: _model.rateModel,
-              updateCallback: () => setState(() {}),
-              updateOnChange: true,
-              child: RateWidget(),
-            ),
-          ],
-        ),
-      ),
-    ),
-  ],
-),
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 276,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                    ),
+                                    child: Align(
+                                      alignment:
+                                          const AlignmentDirectional(-1, 0),
+                                      child: AutoSizeText(
+                                        'item_name',
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              fontSize: 22,
+                                              letterSpacing: 0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  FlutterFlowIconButton(
+                                    borderColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: 20,
+                                    borderWidth: 1,
+                                    buttonSize: 40,
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    icon: Icon(
+                                      Icons.keyboard_control_sharp,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 24,
+                                    ),
+                                    onPressed: () {
+                                      print('IconButton pressed ...');
+                                    },
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 5, 0, 0),
+                                child: Container(
+                                  width: 90,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(30),
+                                      bottomRight: Radius.circular(30),
+                                      topLeft: Radius.circular(30),
+                                      topRight: Radius.circular(30),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(-1, 0),
+                                        child: Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(5, 0, 0, 0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(24),
+                                            child: Image.network(
+                                              'https://picsum.photos/seed/592/600',
+                                              width: 20,
+                                              height: 20,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(3, 0, 2, 0),
+                                        child: Text(
+                                          'BRAND',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                fontSize: 10,
+                                                letterSpacing: 0,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                child: Container(
+                                  decoration: const BoxDecoration(),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '\$795.99',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Bebas Neue',
+                                              fontSize: 18,
+                                              letterSpacing: 0,
+                                            ),
+                                      ),
+                                      wrapWithModel(
+                                        model: _model.rateModel,
+                                        updateCallback: () => setState(() {}),
+                                        updateOnChange: true,
+                                        child: const RateWidget(),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Align(
@@ -319,8 +341,9 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 5.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 5.0, 0.0, 0.0),
                                       child: ListView(
                                         padding: const EdgeInsets.fromLTRB(
                                           24.0,
@@ -331,9 +354,8 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                         scrollDirection: Axis.horizontal,
                                         children: [
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 5.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 0.0, 5.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () {
                                                 print('Button pressed ...');
@@ -345,13 +367,14 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                               ),
                                               options: FFButtonOptions(
                                                 height: 20.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         10.0, 0.0, 10.0, 0.0),
                                                 iconPadding:
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
+                                                        0.0, 0.0, 0.0, 0.0),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryBackground,
@@ -360,8 +383,8 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                                         .titleSmall
                                                         .override(
                                                           fontFamily: 'Oswald',
-                                                          color:
-                                                              const Color(0xFF026F01),
+                                                          color: const Color(
+                                                              0xFF026F01),
                                                           fontSize: 1.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
@@ -378,9 +401,8 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 5.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 0.0, 5.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () {
                                                 print('Button pressed ...');
@@ -392,13 +414,14 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                               ),
                                               options: FFButtonOptions(
                                                 height: 20.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         10.0, 0.0, 10.0, 0.0),
                                                 iconPadding:
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
+                                                        0.0, 0.0, 0.0, 0.0),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryBackground,
@@ -407,8 +430,8 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                                         .titleSmall
                                                         .override(
                                                           fontFamily: 'Oswald',
-                                                          color:
-                                                              const Color(0xFF026F01),
+                                                          color: const Color(
+                                                              0xFF026F01),
                                                           fontSize: 1.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
@@ -425,9 +448,8 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 5.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 0.0, 5.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () {
                                                 print('Button pressed ...');
@@ -439,13 +461,14 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                               ),
                                               options: FFButtonOptions(
                                                 height: 20.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         10.0, 0.0, 10.0, 0.0),
                                                 iconPadding:
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
+                                                        0.0, 0.0, 0.0, 0.0),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryBackground,
@@ -454,8 +477,8 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                                         .titleSmall
                                                         .override(
                                                           fontFamily: 'Oswald',
-                                                          color:
-                                                              const Color(0xFF026F01),
+                                                          color: const Color(
+                                                              0xFF026F01),
                                                           fontSize: 1.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
@@ -507,8 +530,9 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 5.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 5.0, 0.0, 0.0),
                                       child: ListView(
                                         padding: const EdgeInsets.fromLTRB(
                                           24.0,
@@ -526,10 +550,14 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             options: FFButtonOptions(
                                               width: 20.0,
                                               height: 20.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
@@ -559,10 +587,14 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             options: FFButtonOptions(
                                               width: 20.0,
                                               height: 20.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
                                               color: const Color(0xFFFF0004),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
@@ -590,10 +622,14 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             options: FFButtonOptions(
                                               width: 20.0,
                                               height: 20.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryBackground,
@@ -859,8 +895,9 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             width: 30.0,
                                             decoration: const BoxDecoration(),
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
-                                                  0.0, 0.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      0.0, 0.0),
                                               child: FaIcon(
                                                 FontAwesomeIcons.truck,
                                                 color:
@@ -872,8 +909,10 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 0.0, 0.0, 0.0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      5.0, 0.0, 0.0, 0.0),
                                               child: Text(
                                                 'DELIVERY',
                                                 style:
@@ -888,9 +927,8 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    30.0, 0.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(30.0, 0.0, 0.0, 0.0),
                                             child: LinearPercentIndicator(
                                               percent: 0.85,
                                               width: 140.0,
@@ -902,14 +940,14 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                                       .primaryText,
                                               backgroundColor:
                                                   const Color(0xFFF5F7FC),
-                                              barRadius: const Radius.circular(8.0),
+                                              barRadius:
+                                                  const Radius.circular(8.0),
                                               padding: EdgeInsets.zero,
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               '4.6 ★',
                                               style: FlutterFlowTheme.of(
@@ -933,8 +971,9 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             width: 30.0,
                                             decoration: const BoxDecoration(),
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
-                                                  0.0, 0.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      0.0, 0.0),
                                               child: FaIcon(
                                                 FontAwesomeIcons.trophy,
                                                 color:
@@ -946,8 +985,10 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 0.0, 0.0, 0.0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      5.0, 0.0, 0.0, 0.0),
                                               child: Text(
                                                 'QUALITY',
                                                 style:
@@ -962,9 +1003,8 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    30.0, 0.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(30.0, 0.0, 0.0, 0.0),
                                             child: LinearPercentIndicator(
                                               percent: 0.6,
                                               width: 140.0,
@@ -976,14 +1016,14 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                                       .primaryText,
                                               backgroundColor:
                                                   const Color(0xFFF5F7FC),
-                                              barRadius: const Radius.circular(8.0),
+                                              barRadius:
+                                                  const Radius.circular(8.0),
                                               padding: EdgeInsets.zero,
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               '4.6 ★',
                                               style: FlutterFlowTheme.of(
@@ -1007,8 +1047,9 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             width: 30.0,
                                             decoration: const BoxDecoration(),
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
-                                                  0.0, 0.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      0.0, 0.0),
                                               child: FaIcon(
                                                 FontAwesomeIcons.dollarSign,
                                                 color:
@@ -1020,8 +1061,10 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 0.0, 0.0, 0.0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      5.0, 0.0, 0.0, 0.0),
                                               child: Text(
                                                 'VALUE',
                                                 style:
@@ -1036,9 +1079,8 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    30.0, 0.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(30.0, 0.0, 0.0, 0.0),
                                             child: LinearPercentIndicator(
                                               percent: 0.9,
                                               width: 140.0,
@@ -1050,14 +1092,14 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                                       .primaryText,
                                               backgroundColor:
                                                   const Color(0xFFF5F7FC),
-                                              barRadius: const Radius.circular(8.0),
+                                              barRadius:
+                                                  const Radius.circular(8.0),
                                               padding: EdgeInsets.zero,
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               '4.6 ★',
                                               style: FlutterFlowTheme.of(
@@ -1081,8 +1123,8 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                         ),
                       ),
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 5.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 10.0, 0.0, 5.0),
                         child: Container(
                           width: 325.0,
                           height: 150.0,
@@ -1114,16 +1156,17 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 10.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 10.0, 0.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       10.0, 0.0, 0.0, 0.0),
                                               child: Container(
                                                 width: 40.0,
@@ -1140,8 +1183,9 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             ),
                                             Expanded(
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         10.0, 0.0, 0.0, 0.0),
                                                 child: Text(
                                                   'username',
@@ -1160,21 +1204,24 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             Expanded(
                                               child: Text(
                                                 '• 24 AGREE',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      color: const Color(0x7F0D9E00),
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: const Color(
+                                                              0x7F0D9E00),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
                                               ),
                                             ),
                                             Align(
-                                              alignment: const AlignmentDirectional(
-                                                  1.0, 1.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      1.0, 1.0),
                                               child: FlutterFlowIconButton(
                                                 borderColor: Colors.transparent,
                                                 borderRadius: 20.0,
@@ -1198,12 +1245,11 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                       ),
                                       Expanded(
                                         child: Align(
-                                          alignment:
-                                              const AlignmentDirectional(-1.0, -1.0),
+                                          alignment: const AlignmentDirectional(
+                                              -1.0, -1.0),
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 10.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10.0, 10.0, 0.0, 0.0),
                                             child: Text(
                                               'review_text',
                                               style:
@@ -1220,12 +1266,11 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                       ),
                                       Expanded(
                                         child: Align(
-                                          alignment:
-                                              const AlignmentDirectional(-1.0, 1.0),
+                                          alignment: const AlignmentDirectional(
+                                              -1.0, 1.0),
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 10.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10.0, 0.0, 0.0, 10.0),
                                             child: Text(
                                               'Variant: [variant]  •  Size: [size]',
                                               style:
@@ -1259,16 +1304,17 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 10.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 10.0, 0.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       10.0, 0.0, 0.0, 0.0),
                                               child: Container(
                                                 width: 40.0,
@@ -1285,8 +1331,9 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             ),
                                             Expanded(
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         10.0, 0.0, 0.0, 0.0),
                                                 child: Text(
                                                   'username',
@@ -1305,21 +1352,24 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             Expanded(
                                               child: Text(
                                                 '• 24 AGREE',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      color: const Color(0x7F0D9E00),
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: const Color(
+                                                              0x7F0D9E00),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
                                               ),
                                             ),
                                             Align(
-                                              alignment: const AlignmentDirectional(
-                                                  1.0, 1.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      1.0, 1.0),
                                               child: FlutterFlowIconButton(
                                                 borderColor: Colors.transparent,
                                                 borderRadius: 20.0,
@@ -1343,12 +1393,11 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                       ),
                                       Expanded(
                                         child: Align(
-                                          alignment:
-                                              const AlignmentDirectional(-1.0, -1.0),
+                                          alignment: const AlignmentDirectional(
+                                              -1.0, -1.0),
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 10.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10.0, 10.0, 0.0, 0.0),
                                             child: Text(
                                               'review_text',
                                               style:
@@ -1365,12 +1414,11 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                       ),
                                       Expanded(
                                         child: Align(
-                                          alignment:
-                                              const AlignmentDirectional(-1.0, 1.0),
+                                          alignment: const AlignmentDirectional(
+                                              -1.0, 1.0),
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 10.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10.0, 0.0, 0.0, 10.0),
                                             child: Text(
                                               'Variant: [variant]  •  Size: [size]',
                                               style:
@@ -1404,16 +1452,17 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 10.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 10.0, 0.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       10.0, 0.0, 0.0, 0.0),
                                               child: Container(
                                                 width: 40.0,
@@ -1430,8 +1479,9 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             ),
                                             Expanded(
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         10.0, 0.0, 0.0, 0.0),
                                                 child: Text(
                                                   'username',
@@ -1450,21 +1500,24 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                             Expanded(
                                               child: Text(
                                                 '• 24 AGREE',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      color: const Color(0x7F0D9E00),
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: const Color(
+                                                              0x7F0D9E00),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
                                               ),
                                             ),
                                             Align(
-                                              alignment: const AlignmentDirectional(
-                                                  1.0, 1.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      1.0, 1.0),
                                               child: FlutterFlowIconButton(
                                                 borderColor: Colors.transparent,
                                                 borderRadius: 20.0,
@@ -1488,12 +1541,11 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                       ),
                                       Expanded(
                                         child: Align(
-                                          alignment:
-                                              const AlignmentDirectional(-1.0, -1.0),
+                                          alignment: const AlignmentDirectional(
+                                              -1.0, -1.0),
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 10.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10.0, 10.0, 0.0, 0.0),
                                             child: Text(
                                               'review_text',
                                               style:
@@ -1510,12 +1562,11 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                       ),
                                       Expanded(
                                         child: Align(
-                                          alignment:
-                                              const AlignmentDirectional(-1.0, 1.0),
+                                          alignment: const AlignmentDirectional(
+                                              -1.0, 1.0),
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 10.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10.0, 0.0, 0.0, 10.0),
                                             child: Text(
                                               'Variant: [variant]  •  Size: [size]',
                                               style:
@@ -1648,8 +1699,8 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                   child: Align(
                     alignment: const AlignmentDirectional(0.0, 1.0),
                     child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 5.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

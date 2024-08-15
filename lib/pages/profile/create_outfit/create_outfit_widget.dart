@@ -117,89 +117,90 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        if(!isDragging)
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
-                                child: FlutterFlowIconButton(
+                        if (!isDragging)
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15, 0, 0, 0),
+                                  child: FlutterFlowIconButton(
+                                    borderRadius: 24,
+                                    borderWidth: 1,
+                                    buttonSize: 50,
+                                    fillColor: Color(0xB214181B),
+                                    icon: Icon(
+                                      Icons.chevron_left,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      size: 34,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  width: 195,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.0),
+                                  ),
+                                ),
+                                FlutterFlowIconButton(
                                   borderRadius: 24,
                                   borderWidth: 1,
                                   buttonSize: 50,
                                   fillColor: Color(0xB214181B),
-                                  icon: Icon(
-                                    Icons.chevron_left,
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.pencilAlt,
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
-                                    size: 34,
+                                    size: 24,
                                   ),
                                   onPressed: () {
                                     print('IconButton pressed ...');
                                   },
                                 ),
-                              ),
-                              Container(
-                                width: 195,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.0),
-                                ),
-                              ),
-                              FlutterFlowIconButton(
-                                borderRadius: 24,
-                                borderWidth: 1,
-                                buttonSize: 50,
-                                fillColor: Color(0xB214181B),
-                                icon: FaIcon(
-                                  FontAwesomeIcons.pencilAlt,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  size: 24,
-                                ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15, 0, 10, 0),
-                                child: FlutterFlowIconButton(
-                                  borderRadius: 24,
-                                  borderWidth: 1,
-                                  buttonSize: 50,
-                                  fillColor: Color(0xB214181B),
-                                  icon: Icon(
-                                    Icons.add,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    size: 30,
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15, 0, 10, 0),
+                                  child: FlutterFlowIconButton(
+                                    borderRadius: 24,
+                                    borderWidth: 1,
+                                    buttonSize: 50,
+                                    fillColor: Color(0xB214181B),
+                                    icon: Icon(
+                                      Icons.add,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      size: 30,
+                                    ),
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        isScrollControlled: true,
+                                        builder: (BuildContext context) {
+                                          return Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .9,
+                                            child: CreateOutfitSearchWidget(
+                                              onImageSelected: addImage,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
                                   ),
-                                  onPressed: () {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      isScrollControlled: true,
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              .9,
-                                          child: CreateOutfitSearchWidget(
-                                            onImageSelected: addImage,
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ],

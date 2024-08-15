@@ -1,4 +1,6 @@
+import 'package:redthread/components/create_outfit_search_widget.dart';
 import 'package:redthread/index.dart';
+import 'package:redthread/pages/profile/collection_pages/collection_view/collection_view_widget.dart';
 
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'profile_model.dart';
 export 'profile_model.dart';
+import '../post/create_post/create_post_widget.dart';
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({super.key});
@@ -81,15 +84,16 @@ class _ProfileWidgetState extends State<ProfileWidget>
                           fillColor:
                               FlutterFlowTheme.of(context).secondaryBackground,
                           icon: Icon(
-                            Icons.share,
+                            Icons.add_box,
                             color: FlutterFlowTheme.of(context).primaryText,
-                            size: 20.0,
+                            size: 30.0,
                           ),
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const CreateOutfitWidget()),
+                                  builder: (context) =>
+                                      const CreatePostWidget()),
                             );
                           },
                         ),
@@ -108,13 +112,13 @@ class _ProfileWidgetState extends State<ProfileWidget>
                           icon: Icon(
                             Icons.menu,
                             color: FlutterFlowTheme.of(context).primaryText,
-                            size: 24.0,
+                            size: 30.0,
                           ),
                           onPressed: () {
                             print('IconButton pressed ...');
                           },
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),
@@ -1013,8 +1017,11 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                   size: 16.0,
                                                 ),
                                                 onPressed: () {
-                                                  print(
-                                                      'IconButton pressed ...');
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const CreateOutfitWidget()));
                                                 },
                                               ),
                                               FlutterFlowIconButton(

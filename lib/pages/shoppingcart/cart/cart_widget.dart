@@ -1,11 +1,8 @@
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
-import '/flutter_flow/flutter_flow_count_controller.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'cart_model.dart';
 export 'cart_model.dart';
@@ -281,9 +278,9 @@ class _CartWidgetState extends State<CartWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(0, 0),
+                    alignment: const AlignmentDirectional(0, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(25, 10, 10, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(25, 10, 10, 0),
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -296,7 +293,7 @@ class _CartWidgetState extends State<CartWidget> {
                           lineHeight: 15,
                           animation: true,
                           animateFromLastPercent: true,
-                          progressColor: Color(0xFFFF0000),
+                          progressColor: const Color(0xFFFF0000),
                           backgroundColor: FlutterFlowTheme.of(context).accent4,
                           padding: EdgeInsets.zero,
                         ),
