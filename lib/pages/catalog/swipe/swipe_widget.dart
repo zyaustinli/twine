@@ -377,7 +377,7 @@ child: Column(
               model: _model.rateModel,
               updateCallback: () => setState(() {}),
               updateOnChange: true,
-              child: RateWidget(),
+              child: const RateWidget(),
             ),
           ],
         ),

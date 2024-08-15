@@ -1,10 +1,7 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 import 'search_model.dart';
 export 'search_model.dart';
@@ -60,11 +57,11 @@ class _SearchWidgetState extends State<SearchWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(10),
+          preferredSize: const Size.fromHeight(10),
           child: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
             automaticallyImplyLeading: false,
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 0,
           ),
@@ -75,9 +72,9 @@ class _SearchWidgetState extends State<SearchWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: AlignmentDirectional(0, 1),
+                alignment: const AlignmentDirectional(0, 1),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                   child: Container(
                     width: double.infinity,
                     height: 40,
@@ -89,7 +86,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                       ),
                     ),
                     child: Align(
-                      alignment: AlignmentDirectional(0, 1),
+                      alignment: const AlignmentDirectional(0, 1),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -118,7 +115,7 @@ Navigator.of(context).pop();
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .primaryBackground,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(0),
                                 bottomRight: Radius.circular(0),
                                 topLeft: Radius.circular(0),
@@ -151,7 +148,7 @@ Navigator.of(context).pop();
                                 focusedBorder: InputBorder.none,
                                 errorBorder: InputBorder.none,
                                 focusedErrorBorder: InputBorder.none,
-                                prefixIcon: Icon(
+                                prefixIcon: const Icon(
                                   Icons.search_sharp,
                                 ),
                               ),
@@ -180,7 +177,7 @@ Navigator.of(context).pop();
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                children: [
+                children: const [
 
                   
 

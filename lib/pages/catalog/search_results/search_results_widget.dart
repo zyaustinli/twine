@@ -1,10 +1,7 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 import 'search_results_model.dart';
 export 'search_results_model.dart';
@@ -12,8 +9,7 @@ export 'search_results_model.dart';
 class SearchResultsWidget extends StatefulWidget {
   final String initialQuery;
 
-  const SearchResultsWidget({Key? key, this.initialQuery = ''})
-      : super(key: key);
+  const SearchResultsWidget({super.key, this.initialQuery = ''});
 
   @override
   State<SearchResultsWidget> createState() => _SearchResultsWidgetState();
@@ -64,11 +60,11 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(10),
+          preferredSize: const Size.fromHeight(10),
           child: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
             automaticallyImplyLeading: false,
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 0,
           ),
@@ -79,9 +75,9 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: AlignmentDirectional(0, 1),
+                alignment: const AlignmentDirectional(0, 1),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                   child: Container(
                     width: double.infinity,
                     height: 40,
@@ -93,7 +89,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                       ),
                     ),
                     child: Align(
-                      alignment: AlignmentDirectional(0, 1),
+                      alignment: const AlignmentDirectional(0, 1),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -121,7 +117,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .primaryBackground,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(0),
                                 bottomRight: Radius.circular(0),
                                 topLeft: Radius.circular(0),
@@ -153,7 +149,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                 focusedBorder: InputBorder.none,
                                 errorBorder: InputBorder.none,
                                 focusedErrorBorder: InputBorder.none,
-                                prefixIcon: Icon(
+                                prefixIcon: const Icon(
                                   Icons.search_sharp,
                                 ),
                               ),
@@ -179,7 +175,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                 child: Column(
                   children: [
                     Align(
-                      alignment: Alignment(0, 0),
+                      alignment: const Alignment(0, 0),
                       child: TabBar(
                         labelColor: FlutterFlowTheme.of(context).primaryText,
                         unselectedLabelColor:
@@ -190,11 +186,11 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                   fontSize: 12,
                                   letterSpacing: 0,
                                 ),
-                        unselectedLabelStyle: TextStyle(),
+                        unselectedLabelStyle: const TextStyle(),
                         indicatorColor:
                             FlutterFlowTheme.of(context).primaryText,
-                        padding: EdgeInsets.all(4),
-                        tabs: [
+                        padding: const EdgeInsets.all(4),
+                        tabs: const [
                           Tab(
                             text: 'Products',
                           ),
@@ -217,13 +213,13 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                         children: [
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                                const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                             child: Container(
-                              decoration: BoxDecoration(),
+                              decoration: const BoxDecoration(),
                               child: GridView(
                                 padding: EdgeInsets.zero,
                                 gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 10,
@@ -262,10 +258,10 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                         Container(
                                           width: double.infinity,
                                           height: 60,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0, 5, 0, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -307,7 +303,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   10, 0, 0, 0),
                                                       child: Text(
@@ -365,10 +361,10 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                         Container(
                                           width: double.infinity,
                                           height: 60,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0, 5, 0, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -410,7 +406,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   10, 0, 0, 0),
                                                       child: Text(
@@ -468,10 +464,10 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                         Container(
                                           width: double.infinity,
                                           height: 60,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0, 5, 0, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -513,7 +509,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   10, 0, 0, 0),
                                                       child: Text(
@@ -571,10 +567,10 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                         Container(
                                           width: double.infinity,
                                           height: 60,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0, 5, 0, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -616,7 +612,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   10, 0, 0, 0),
                                                       child: Text(
@@ -649,11 +645,11 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                                const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                             child: GridView(
                               padding: EdgeInsets.zero,
                               gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10,
@@ -777,7 +773,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                       width: 80,
                                       height: 80,
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                       ),
                                       child: Image.network(
@@ -797,9 +793,9 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                         children: [
                                           Align(
                                             alignment:
-                                                AlignmentDirectional(-1, -1),
+                                                const AlignmentDirectional(-1, -1),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0, 10, 0, 0),
                                               child: Text(
                                                 'Username',
@@ -824,11 +820,11 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                             children: [
                                               Align(
                                                 alignment:
-                                                    AlignmentDirectional(-1, 0),
+                                                    const AlignmentDirectional(-1, 0),
                                                 child: Container(
                                                   width: 125,
                                                   height: 20,
-                                                  decoration: BoxDecoration(),
+                                                  decoration: const BoxDecoration(),
                                                   child: Text(
                                                     'last_message',
                                                     textAlign: TextAlign.start,

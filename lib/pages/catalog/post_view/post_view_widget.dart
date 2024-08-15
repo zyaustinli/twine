@@ -5,8 +5,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 import 'post_view_model.dart';
 export 'post_view_model.dart';
@@ -60,7 +58,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
               context.pop();
             },
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0,
         ),
@@ -76,13 +74,13 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
                     height: 500,
                     child: Stack(
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
                           child: PageView(
                             controller: _model.pageViewController ??=
                                 PageController(initialPage: 0),
@@ -119,10 +117,10 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0, 1),
+                          alignment: const AlignmentDirectional(0, 1),
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 16),
+                                const EdgeInsetsDirectional.fromSTEB(16, 0, 0, 16),
                             child: smooth_page_indicator.SmoothPageIndicator(
                               controller: _model.pageViewController ??=
                                   PageController(initialPage: 0),
@@ -131,7 +129,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                               onDotClicked: (i) async {
                                 await _model.pageViewController!.animateToPage(
                                   i,
-                                  duration: Duration(milliseconds: 500),
+                                  duration: const Duration(milliseconds: 500),
                                   curve: Curves.ease,
                                 );
                                 setState(() {});
@@ -165,12 +163,12 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                         child: Container(
                           width: 50,
                           height: 50,
                           clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
                           child: Image.network(
@@ -181,7 +179,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                       ),
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                           child: Text(
                             'zeyiiii',
                             maxLines: 1,
@@ -197,7 +195,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
                         child: FFButtonWidget(
                           onPressed: () {
                             print('Button pressed ...');
@@ -206,9 +204,9 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                           options: FFButtonOptions(
                             width: 70,
                             height: 30,
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                             iconPadding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                             textStyle: FlutterFlowTheme.of(context)
@@ -287,7 +285,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                     ],
                   ),
                 ),
-                Divider(
+                const Divider(
                   thickness: 1,
                   color: Color(0xFFDBDBDB),
                 ),
@@ -332,7 +330,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                     ],
                   ),
                 ),
-                Divider(
+                const Divider(
                   thickness: 1,
                   color: Color(0xFFDBDBDB),
                 ),
@@ -351,11 +349,11 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                   child: Container(
                     width: 360,
                     height: 80,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xFFF5F7FC),
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(8),
@@ -368,7 +366,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -384,14 +382,14 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                               ),
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                    const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                 child: Text(
                                   '23',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Readex Pro',
-                                        color: Color(0x7F14181B),
+                                        color: const Color(0x7F14181B),
                                         letterSpacing: 0,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -401,19 +399,19 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                    const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                 child: Container(
                                   width: 30,
                                   height: 30,
                                   clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
                                   ),
                                   child: Image.network(
@@ -424,7 +422,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                               ),
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                    const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                 child: Text(
                                   'top_comment',
                                   style: FlutterFlowTheme.of(context)
@@ -442,7 +440,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                     ),
                   ),
                 ),
-                Divider(
+                const Divider(
                   thickness: 1,
                   color: Color(0xFFDBDBDB),
                 ),
@@ -457,7 +455,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                     ),
                   ),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -472,7 +470,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                                   ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Container(
                             width: double.infinity,
                             height: 150,
@@ -504,10 +502,10 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: AlignmentDirectional(-1, 0),
+                                        alignment: const AlignmentDirectional(-1, 0),
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0, 5, 0, 0),
                                           child: Text(
                                             'Item name',
@@ -523,10 +521,10 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: AlignmentDirectional(-1, 0),
+                                        alignment: const AlignmentDirectional(-1, 0),
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0, 5, 0, 0),
                                           child: Text(
                                             'price',
@@ -545,7 +543,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                                     ],
                                   ),
                                 ),
-                              ].divide(SizedBox(width: 10)),
+                              ].divide(const SizedBox(width: 10)),
                             ),
                           ),
                         ),
@@ -553,12 +551,12 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                     ),
                   ),
                 ),
-                Divider(
+                const Divider(
                   thickness: 1,
                   color: Color(0xFFDBDBDB),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                  padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -570,11 +568,11 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                               fontWeight: FontWeight.w600,
                             ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       GridView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
@@ -591,7 +589,7 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => PostViewWidget(),
+                                  builder: (context) => const PostViewWidget(),
                                 ),
                               );
                             },
