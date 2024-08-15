@@ -1,3 +1,5 @@
+import 'package:redthread/index.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -68,8 +70,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 10.0, 0.0),
                         child: FlutterFlowIconButton(
                           borderColor:
                               FlutterFlowTheme.of(context).secondaryBackground,
@@ -84,13 +86,17 @@ class _ProfileWidgetState extends State<ProfileWidget>
                             size: 20.0,
                           ),
                           onPressed: () {
-                            print('IconButton pressed ...');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const CreateOutfitWidget()),
+                            );
                           },
                         ),
                       ),
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 20.0, 0.0),
                         child: FlutterFlowIconButton(
                           borderColor:
                               FlutterFlowTheme.of(context).secondaryBackground,
@@ -142,8 +148,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 10.0),
                       child: Container(
                         width: 100.0,
                         height: 50.0,
@@ -314,8 +320,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                 Align(
                   alignment: const AlignmentDirectional(0.0, 1.0),
                   child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 10.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -502,8 +508,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                     height: 60.0,
                                     decoration: const BoxDecoration(),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 10.0, 0.0, 10.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 10.0, 0.0, 10.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -517,11 +524,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             options: FFButtonOptions(
                                               width: 120.0,
                                               height: 35.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
@@ -547,11 +557,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             options: FFButtonOptions(
                                               width: 120.0,
                                               height: 35.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
                                               color: const Color(0xFFF5F7FC),
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
@@ -576,11 +589,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             options: FFButtonOptions(
                                               width: 120.0,
                                               height: 35.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
                                               color: const Color(0xFFF5F7FC),
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
@@ -624,11 +640,13 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         0.0, 0.0, 0.0, 5.0),
                                                 child: Container(
-                                                  decoration: const BoxDecoration(),
+                                                  decoration:
+                                                      const BoxDecoration(),
                                                   child: FlutterFlowIconButton(
                                                     borderWidth: 1.0,
                                                     buttonSize: 100.0,
@@ -675,13 +693,15 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         0.0, 0.0, 0.0, 5.0),
                                                 child: Container(
                                                   width: 100.0,
                                                   height: 100.0,
-                                                  decoration: const BoxDecoration(),
+                                                  decoration:
+                                                      const BoxDecoration(),
                                                   child: GridView(
                                                     padding: EdgeInsets.zero,
                                                     gridDelegate:
@@ -760,12 +780,15 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 5.0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 5.0),
                                               child: Container(
                                                 width: 100.0,
                                                 height: 100.0,
-                                                decoration: const BoxDecoration(),
+                                                decoration:
+                                                    const BoxDecoration(),
                                                 child: GridView(
                                                   padding: EdgeInsets.zero,
                                                   gridDelegate:
@@ -843,12 +866,15 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 5.0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 5.0),
                                               child: Container(
                                                 width: 100.0,
                                                 height: 100.0,
-                                                decoration: const BoxDecoration(),
+                                                decoration:
+                                                    const BoxDecoration(),
                                                 child: GridView(
                                                   padding: EdgeInsets.zero,
                                                   gridDelegate:
@@ -948,9 +974,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 0.0, 0.0, 0.0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(10.0, 0.0, 0.0, 0.0),
                                           child: Text(
                                             'num_outfits',
                                             style: FlutterFlowTheme.of(context)
@@ -978,7 +1003,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                 borderRadius: 20.0,
                                                 borderWidth: 1.0,
                                                 buttonSize: 32.0,
-                                                fillColor: const Color(0xFFF5F7FC),
+                                                fillColor:
+                                                    const Color(0xFFF5F7FC),
                                                 icon: Icon(
                                                   Icons.add,
                                                   color: FlutterFlowTheme.of(
@@ -996,7 +1022,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                 borderRadius: 20.0,
                                                 borderWidth: 1.0,
                                                 buttonSize: 32.0,
-                                                fillColor: const Color(0xFFF5F7FC),
+                                                fillColor:
+                                                    const Color(0xFFF5F7FC),
                                                 icon: Icon(
                                                   Icons.playlist_add_rounded,
                                                   color: FlutterFlowTheme.of(
@@ -1014,7 +1041,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                 borderRadius: 20.0,
                                                 borderWidth: 1.0,
                                                 buttonSize: 32.0,
-                                                fillColor: const Color(0xFFF5F7FC),
+                                                fillColor:
+                                                    const Color(0xFFF5F7FC),
                                                 icon: Icon(
                                                   Icons.flash_on,
                                                   color: FlutterFlowTheme.of(
@@ -1032,7 +1060,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                 borderRadius: 20.0,
                                                 borderWidth: 1.0,
                                                 buttonSize: 32.0,
-                                                fillColor: const Color(0xFFF5F7FC),
+                                                fillColor:
+                                                    const Color(0xFFF5F7FC),
                                                 icon: Icon(
                                                   Icons.grid_view,
                                                   color: FlutterFlowTheme.of(
@@ -1055,8 +1084,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                     height: 60.0,
                                     decoration: const BoxDecoration(),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 10.0, 0.0, 10.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 10.0, 0.0, 10.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1070,11 +1100,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             options: FFButtonOptions(
                                               width: 120.0,
                                               height: 35.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
@@ -1100,11 +1133,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             options: FFButtonOptions(
                                               width: 120.0,
                                               height: 35.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
                                               color: const Color(0xFFF5F7FC),
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
@@ -1129,11 +1165,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             options: FFButtonOptions(
                                               width: 120.0,
                                               height: 35.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
                                               color: const Color(0xFFF5F7FC),
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
@@ -1156,8 +1195,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                   ),
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 0.0, 10.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10.0, 0.0, 10.0, 0.0),
                                       child: Container(
                                         decoration: const BoxDecoration(),
                                         child: GridView(
@@ -1213,11 +1253,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                     child: Padding(
                                                       padding:
                                                           const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
+                                                              .fromSTEB(5.0,
+                                                              0.0, 0.0, 0.0),
                                                       child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -1298,11 +1335,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                     child: Padding(
                                                       padding:
                                                           const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
+                                                              .fromSTEB(5.0,
+                                                              0.0, 0.0, 0.0),
                                                       child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -1357,8 +1391,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                     height: 60.0,
                                     decoration: const BoxDecoration(),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 10.0, 0.0, 10.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 10.0, 0.0, 10.0),
                                       child: SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: Row(
@@ -1373,13 +1408,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                               text: 'All',
                                               options: FFButtonOptions(
                                                 height: 35.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         24.0, 0.0, 24.0, 0.0),
                                                 iconPadding:
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
+                                                        0.0, 0.0, 0.0, 0.0),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
@@ -1407,13 +1443,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                               ),
                                               options: FFButtonOptions(
                                                 height: 35.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         24.0, 0.0, 24.0, 0.0),
                                                 iconPadding:
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
+                                                        0.0, 0.0, 0.0, 0.0),
                                                 color: const Color(0xFFF5F7FC),
                                                 textStyle: FlutterFlowTheme.of(
                                                         context)
@@ -1438,13 +1475,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                               text: 'Bottoms',
                                               options: FFButtonOptions(
                                                 height: 35.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         24.0, 0.0, 24.0, 0.0),
                                                 iconPadding:
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
+                                                        0.0, 0.0, 0.0, 0.0),
                                                 color: const Color(0xFFF5F7FC),
                                                 textStyle: FlutterFlowTheme.of(
                                                         context)
@@ -1469,13 +1507,14 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                               text: 'Accessories',
                                               options: FFButtonOptions(
                                                 height: 35.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         24.0, 0.0, 24.0, 0.0),
                                                 iconPadding:
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
+                                                        0.0, 0.0, 0.0, 0.0),
                                                 color: const Color(0xFFF5F7FC),
                                                 textStyle: FlutterFlowTheme.of(
                                                         context)
@@ -1500,8 +1539,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                   ),
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 0.0, 10.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10.0, 0.0, 10.0, 0.0),
                                       child: Container(
                                         decoration: const BoxDecoration(),
                                         child: GridView(
@@ -1556,11 +1596,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                     child: Padding(
                                                       padding:
                                                           const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
+                                                              .fromSTEB(5.0,
+                                                              0.0, 0.0, 0.0),
                                                       child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -1572,10 +1609,10 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                             padding:
                                                                 const EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        0.0,
-                                                                        5.0,
-                                                                        0.0,
-                                                                        0.0),
+                                                                    0.0,
+                                                                    5.0,
+                                                                    0.0,
+                                                                    0.0),
                                                             child: Text(
                                                               'piece_name',
                                                               style: FlutterFlowTheme
@@ -1630,8 +1667,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsetsDirectional
-                                                            .fromSTEB(5.0, 0.0,
-                                                                0.0, 0.0),
+                                                            .fromSTEB(
+                                                            5.0, 0.0, 0.0, 0.0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -1643,10 +1680,10 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                           padding:
                                                               const EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      0.0,
-                                                                      5.0,
-                                                                      0.0,
-                                                                      0.0),
+                                                                  0.0,
+                                                                  5.0,
+                                                                  0.0,
+                                                                  0.0),
                                                           child: Text(
                                                             'piece_name',
                                                             style: FlutterFlowTheme
