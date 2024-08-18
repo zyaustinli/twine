@@ -49,6 +49,15 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
               MediaQuery.of(context).size.height * 0.375 - 50)));
     });
   }
+  void moveImageToTop(String imageUrl) {
+  setState(() {
+    int index = draggableImages.indexWhere((image) => image.url == imageUrl);
+    if (index != -1) {
+      DraggableImage image = draggableImages.removeAt(index);
+      draggableImages.add(image);
+    }
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +91,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                               onDragStarted: () {
                                 setState(() {
                                   isDragging = true;
+                                  moveImageToTop(draggableImage.url);
                                 });
                               },
                               onDraggableCanceled: (_, __) {
@@ -91,8 +101,8 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                               },
                               feedback: Image.network(
                                 draggableImage.url,
-                                width: 100,
-                                height: 100,
+                                width: 200,
+                                height: 200,
                                 fit: BoxFit.cover,
                               ),
                               childWhenDragging: Container(),
@@ -102,11 +112,16 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                   isDragging = false;
                                 });
                               },
+                              child: GestureDetector(
+                                onTap: () {
+                                  moveImageToTop(draggableImage.url);
+                                },
                               child: Image.network(
                                 draggableImage.url,
-                                width: 100,
-                                height: 100,
+                                width: 200,
+                                height: 200,
                                 fit: BoxFit.cover,
+                              ),
                               ),
                             ),
                           );
