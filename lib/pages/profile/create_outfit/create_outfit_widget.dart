@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:ui' as ui;
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -11,7 +14,15 @@ import 'create_outfit_model.dart';
 export 'create_outfit_model.dart';
 
 import './../../../components/create_outfit_search_widget.dart';
-import 'draggable_image.dart';
+
+class DraggableImage {
+  final String url;
+  Offset position;
+  ui.Image? image;
+  List<List<bool>>? hitMap;
+
+  DraggableImage(this.url, this.position);
+}
 
 class CreateOutfitWidget extends StatefulWidget {
   const CreateOutfitWidget({super.key});
@@ -36,27 +47,127 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
-  void addImage(String imageUrl) {
-    setState(() {
-      // Add new image at the center of the container
-      draggableImages.add(DraggableImage(
+  Future<List<List<bool>>> computeHitMap(ui.Image image) async {
+    try {
+      // Get the image data as raw RGBA bytes
+      final byteData =
+          await image.toByteData(format: ui.ImageByteFormat.rawRgba);
+      if (byteData == null) {
+        // If ByteData is null, return a hit map filled with true
+        print("ByteData is null");
+        return List.generate(
+            image.height, (_) => List.filled(image.width, true));
+      }
+
+      // Convert ByteData to a Uint8List for easier processing
+      final buffer = byteData.buffer;
+      final uint8List = buffer.asUint8List();
+
+      // Initialize the hit map with the same dimensions as the image, all values set to false
+      List<List<bool>> hitMap = List.generate(
+        image.height,
+        (_) => List.filled(image.width, false),
+      );
+
+      // Calculate the number of bytes per row (4 bytes per pixel for RGBA)
+      int bytesPerRow = image.width * 4;
+
+      // Iterate over each pixel in the image
+      for (int y = 0; y < image.height; y++) {
+        for (int x = 0; x < image.width; x++) {
+          // Calculate the index for the alpha channel
+          final int index =
+              y * bytesPerRow + x * 4 + 3; // +3 to get the alpha channel
+
+          // Ensure the index is within bounds of the Uint8List
+          if (index < uint8List.length) {
+            // Set hitMap to true if the alpha value is greater than 0 (not fully transparent)
+            hitMap[y][x] = uint8List[index] > 0;
+          }
+        }
+      }
+
+      // Return the completed hit map
+      return hitMap;
+    } catch (e) {
+      // Print the error and return a hit map filled with true in case of failure
+      print("Error in computeHitMap: $e");
+      return List.generate(image.height, (_) => List.filled(image.width, true));
+    }
+  }
+
+  void addImage(String imageUrl) async {
+    print("Adding image: $imageUrl");
+    try {
+      final completer = Completer<ui.Image>();
+      final imageStream = NetworkImage(imageUrl).resolve(ImageConfiguration());
+      imageStream.addListener(ImageStreamListener((info, _) {
+        completer.complete(info.image);
+      }));
+
+      final image = await completer.future;
+      final hitMap = await computeHitMap(image);
+
+      setState(() {
+        draggableImages.add(DraggableImage(
           imageUrl,
-          Offset(MediaQuery.of(context).size.width / 2 - 50,
-              MediaQuery.of(context).size.height * 0.375 - 50)));
+          Offset(MediaQuery.of(context).size.width / 2 - 100,
+              MediaQuery.of(context).size.height * 0.375 - 100),
+        )
+          ..image = image
+          ..hitMap = hitMap);
+      });
+      print("Image added. Total images: ${draggableImages.length}");
+    } catch (e) {
+      print("Error adding image: $e");
+    }
+  }
+
+  void moveImageToTop(String imageUrl) {
+    setState(() {
+      int index = draggableImages.indexWhere((image) => image.url == imageUrl);
+      if (index != -1) {
+        DraggableImage image = draggableImages.removeAt(index);
+        draggableImages.add(image);
+      }
     });
   }
-  void moveImageToTop(String imageUrl) {
-  setState(() {
-    int index = draggableImages.indexWhere((image) => image.url == imageUrl);
-    if (index != -1) {
-      DraggableImage image = draggableImages.removeAt(index);
-      draggableImages.add(image);
+
+  bool isPointNotTransparent(DraggableImage draggableImage, Offset localPosition, {int radius = 100}) {
+  if (draggableImage.hitMap == null || draggableImage.image == null) {
+    print("HitMap or Image is null");
+    return true;
+  }
+
+  final int imageWidth = draggableImage.image!.width;
+  final int imageHeight = draggableImage.image!.height;
+  
+  final int centerX = (localPosition.dx * imageWidth / 200).round();
+  final int centerY = (localPosition.dy * imageHeight / 200).round();
+
+  final int startX = (centerX - radius).clamp(0, imageWidth - 1);
+  final int endX = (centerX + radius).clamp(0, imageWidth - 1);
+  final int startY = (centerY - radius).clamp(0, imageHeight - 1);
+  final int endY = (centerY + radius).clamp(0, imageHeight - 1);
+
+  print("Checking area: ($startX, $startY) to ($endX, $endY)");
+  print("Image size: ${imageWidth}x${imageHeight}");
+  print("HitMap size: ${draggableImage.hitMap!.length}x${draggableImage.hitMap![0].length}");
+
+  for (int y = startY; y <= endY; y++) {
+    for (int x = startX; x <= endX; x++) {
+      if (draggableImage.hitMap![y][x]) {
+        print("Found non-transparent pixel at ($x, $y)");
+        return true;
+      }
     }
-  });
+  }
+
+  print("All checked pixels are transparent");
+  return false;
 }
 
   @override
@@ -86,42 +197,40 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                           return Positioned(
                             left: draggableImage.position.dx,
                             top: draggableImage.position.dy,
-                            child: Draggable<String>(
-                              data: draggableImage.url,
-                              onDragStarted: () {
-                                setState(() {
-                                  isDragging = true;
-                                  moveImageToTop(draggableImage.url);
-                                });
+                            child: GestureDetector(
+                              onPanStart: (details) {
+                                final RenderBox box =
+                                    context.findRenderObject() as RenderBox;
+                                final Offset localPosition =
+                                    box.globalToLocal(details.globalPosition);
+                                final Offset imageLocalPosition =
+                                    localPosition - draggableImage.position;
+
+                                if (isPointNotTransparent(
+                                    draggableImage, imageLocalPosition)) {
+                                  setState(() {
+                                    isDragging = true;
+                                    moveImageToTop(draggableImage.url);
+                                  });
+                                }
                               },
-                              onDraggableCanceled: (_, __) {
+                              onPanUpdate: (details) {
+                                if (isDragging) {
+                                  setState(() {
+                                    draggableImage.position += details.delta;
+                                  });
+                                }
+                              },
+                              onPanEnd: (details) {
                                 setState(() {
                                   isDragging = false;
                                 });
                               },
-                              feedback: Image.network(
-                                draggableImage.url,
-                                width: 200,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
-                              childWhenDragging: Container(),
-                              onDragEnd: (details) {
-                                setState(() {
-                                  draggableImage.position = details.offset;
-                                  isDragging = false;
-                                });
-                              },
-                              child: GestureDetector(
-                                onTap: () {
-                                  moveImageToTop(draggableImage.url);
-                                },
                               child: Image.network(
                                 draggableImage.url,
                                 width: 200,
                                 height: 200,
                                 fit: BoxFit.cover,
-                              ),
                               ),
                             ),
                           );
