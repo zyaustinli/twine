@@ -1,3 +1,5 @@
+import 'package:redthread/components/create_outfit_search_widget.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -6,6 +8,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../../../components/create_outfit_search_model.dart';
+import '../../create_outfit/draggable_image.dart';
 
 import 'finalize_post_model.dart';
 export 'finalize_post_model.dart';
@@ -21,6 +25,19 @@ class _FinalizePostWidgetState extends State<FinalizePostWidget> {
   late FinalizePostModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  bool isDragging = false;
+  List<String> itemImages = [
+    'https://picsum.photos/seed/835/600',
+    'https://picsum.photos/seed/835/600'
+  ];
+
+  void addImage(String imageUrl) {
+    setState(() {
+      // Add new image at the center of the container
+      itemImages.add(imageUrl);
+    });
+  }
 
   @override
   void initState() {
@@ -151,7 +168,7 @@ class _FinalizePostWidgetState extends State<FinalizePostWidget> {
                       child: TextFormField(
                         controller: _model.textController,
                         focusNode: _model.textFieldFocusNode,
-                        autofocus: true,
+                        autofocus: false,
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'Write a caption...',
@@ -252,7 +269,21 @@ class _FinalizePostWidgetState extends State<FinalizePostWidget> {
                                         size: 24,
                                       ),
                                       onPressed: () {
-                                        print('IconButton pressed ...');
+                                        showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  .9,
+                                              child: CreateOutfitSearchWidget(
+                                                onImageSelected: addImage,
+                                              ),
+                                            );
+                                          },
+                                        );
                                       },
                                     ),
                                   ),
@@ -267,81 +298,18 @@ class _FinalizePostWidgetState extends State<FinalizePostWidget> {
                 ),
               ),
               Expanded(
-                child: GridView(
-                  padding: EdgeInsets.zero,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 0,
-                    mainAxisSpacing: 0,
-                    childAspectRatio: 1,
-                  ),
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(0),
-                      child: Image.network(
-                        'https://picsum.photos/seed/201/600',
-                        width: 300,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(0),
-                      child: Image.network(
-                        'https://picsum.photos/seed/471/600',
-                        width: 300,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        'https://picsum.photos/seed/794/600',
-                        width: 300,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        'https://picsum.photos/seed/685/600',
-                        width: 300,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        'https://picsum.photos/seed/165/600',
-                        width: 300,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        'https://picsum.photos/seed/118/600',
-                        width: 300,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        'https://picsum.photos/seed/139/600',
-                        width: 300,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ],
-                ),
+                child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2),
+                    itemCount: itemImages.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        child: Image(
+                            image: AssetImage(
+                          itemImages[index],
+                        )),
+                      );
+                    }),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),

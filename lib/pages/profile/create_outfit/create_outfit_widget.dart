@@ -49,15 +49,16 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
               MediaQuery.of(context).size.height * 0.375 - 50)));
     });
   }
+
   void moveImageToTop(String imageUrl) {
-  setState(() {
-    int index = draggableImages.indexWhere((image) => image.url == imageUrl);
-    if (index != -1) {
-      DraggableImage image = draggableImages.removeAt(index);
-      draggableImages.add(image);
-    }
-  });
-}
+    setState(() {
+      int index = draggableImages.indexWhere((image) => image.url == imageUrl);
+      if (index != -1) {
+        DraggableImage image = draggableImages.removeAt(index);
+        draggableImages.add(image);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,12 +117,12 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                 onTap: () {
                                   moveImageToTop(draggableImage.url);
                                 },
-                              child: Image.network(
-                                draggableImage.url,
-                                width: 200,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
+                                child: Image.network(
+                                  draggableImage.url,
+                                  width: 200,
+                                  height: 200,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           );
