@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:ui' as ui;
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -6,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'create_outfit_model.dart';
 export 'create_outfit_model.dart';
 
 import './../../../components/create_outfit_search_widget.dart';
-import 'draggable_image.dart';
 
 class CreateOutfitWidget extends StatefulWidget {
   const CreateOutfitWidget({super.key});
@@ -20,12 +23,27 @@ class CreateOutfitWidget extends StatefulWidget {
   State<CreateOutfitWidget> createState() => _CreateOutfitWidgetState();
 }
 
+class DraggableImage {
+  final String url;
+  Offset position;
+  ui.Image? image;
+  List<List<bool>>? hitMap;
+  bool isDragging = false;
+  DraggableImage(this.url, this.position);
+}
+
 class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
   late CreateOutfitModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<DraggableImage> draggableImages = [];
-  bool isDragging = false;
+  String? draggedImageUrl;
+  bool isImageBeingDragged = false;
+  Offset? currentDragPosition;
+  late Rect trashArea;
+  Color trashIconColor = Colors.black;
+
+  Color backgroundColor = Colors.white; // Default background color
 
   @override
   void initState() {
@@ -36,32 +54,197 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
-  void addImage(String imageUrl) {
+  void deleteImage(String imageUrl) {
     setState(() {
-      // Add new image at the center of the container
-      draggableImages.add(DraggableImage(
-          imageUrl,
-          Offset(MediaQuery.of(context).size.width / 2 - 50,
-              MediaQuery.of(context).size.height * 0.375 - 50)));
+      draggableImages.removeWhere((image) => image.url == imageUrl);
     });
+  }
+
+  Future<List<List<bool>>> computeHitMap(ui.Image image) async {
+    try {
+      // Get the image data as raw RGBA bytes
+      final byteData =
+          await image.toByteData(format: ui.ImageByteFormat.rawRgba);
+      if (byteData == null) {
+        // If ByteData is null, return a hit map filled with true
+        print("ByteData is null");
+        return List.generate(
+            image.height, (_) => List.filled(image.width, true));
+      }
+
+      // Convert ByteData to a Uint8List for easier processing
+      final buffer = byteData.buffer;
+      final uint8List = buffer.asUint8List();
+
+      // Initialize the hit map with the same dimensions as the image, all values set to false
+      List<List<bool>> hitMap = List.generate(
+        image.height,
+        (_) => List.filled(image.width, false),
+      );
+
+      // Calculate the number of bytes per row (4 bytes per pixel for RGBA)
+      int bytesPerRow = image.width * 4;
+
+      // Iterate over each pixel in the image
+      for (int y = 0; y < image.height; y++) {
+        for (int x = 0; x < image.width; x++) {
+          // Calculate the index for the alpha channel
+          final int index =
+              y * bytesPerRow + x * 4 + 3; // +3 to get the alpha channel
+
+          // Ensure the index is within bounds of the Uint8List
+          if (index < uint8List.length) {
+            // Set hitMap to true if the alpha value is greater than 0 (not fully transparent)
+            hitMap[y][x] = uint8List[index] > 0;
+          }
+        }
+      }
+
+      // Return the completed hit map
+      return hitMap;
+    } catch (e) {
+      // Print the error and return a hit map filled with true in case of failure
+      print("Error in computeHitMap: $e");
+      return List.generate(image.height, (_) => List.filled(image.width, true));
+    }
+  }
+
+  void addImage(String imageUrl) async {
+    print("Adding image: $imageUrl");
+    try {
+      final completer = Completer<ui.Image>();
+      final imageStream = NetworkImage(imageUrl).resolve(ImageConfiguration());
+      imageStream.addListener(ImageStreamListener((info, _) {
+        completer.complete(info.image);
+      }));
+
+      final image = await completer.future;
+      final hitMap = await computeHitMap(image);
+
+      setState(() {
+        draggableImages.add(DraggableImage(
+          imageUrl,
+          Offset(MediaQuery.of(context).size.width / 2 - 100,
+              MediaQuery.of(context).size.height * 0.375 - 100),
+        )
+          ..image = image
+          ..hitMap = hitMap);
+      });
+      print("Image added. Total images: ${draggableImages.length}");
+    } catch (e) {
+      print("Error adding image: $e");
+    }
   }
 
   void moveImageToTop(String imageUrl) {
     setState(() {
       int index = draggableImages.indexWhere((image) => image.url == imageUrl);
-      if (index != -1) {
+      if (index != -1 && index != draggableImages.length - 1) {
         DraggableImage image = draggableImages.removeAt(index);
         draggableImages.add(image);
       }
     });
   }
 
+  bool isPointNotTransparent(
+      DraggableImage draggableImage, Offset localPosition,
+      {int radius = 100}) {
+    if (draggableImage.hitMap == null || draggableImage.image == null) {
+      print("HitMap or Image is null");
+      return true;
+    }
+
+    final int imageWidth = draggableImage.image!.width;
+    final int imageHeight = draggableImage.image!.height;
+
+    final int centerX = (localPosition.dx * imageWidth / 200).round();
+    final int centerY = (localPosition.dy * imageHeight / 200).round();
+
+    final int startX = (centerX - radius).clamp(0, imageWidth - 1);
+    final int endX = (centerX + radius).clamp(0, imageWidth - 1);
+    final int startY = (centerY - radius).clamp(0, imageHeight - 1);
+    final int endY = (centerY + radius).clamp(0, imageHeight - 1);
+
+    print("Checking area: ($startX, $startY) to ($endX, $endY)");
+    print("Image size: ${imageWidth}x${imageHeight}");
+    print(
+        "HitMap size: ${draggableImage.hitMap!.length}x${draggableImage.hitMap![0].length}");
+
+    for (int y = startY; y <= endY; y++) {
+      for (int x = startX; x <= endX; x++) {
+        if (draggableImage.hitMap![y][x]) {
+          print("Found non-transparent pixel at ($x, $y)");
+          return true;
+        }
+      }
+    }
+
+    print("All checked pixels are transparent");
+    return false;
+  }
+
+  void _showColorPicker() {
+    Color currentColor = Colors.white; // Default color, change as needed
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: currentColor,
+              onColorChanged: (Color color) {
+                setState(() {
+                  currentColor = color;
+                  backgroundColor = color;
+                });
+              },
+              colorPickerWidth: 300,
+              pickerAreaHeightPercent: 0.7,
+              enableAlpha: false,
+              labelTypes: [],
+              displayThumbColor: false,
+              paletteType: PaletteType.hsl,
+              pickerAreaBorderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(2),
+                topRight: Radius.circular(2),
+              ),
+              hexInputBar: false,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Apply the selected color to the background
+                setState(() {
+                  // Assuming you're changing the scaffold background color
+                  // You might need to adjust this based on your app structure
+                  backgroundColor = currentColor;
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    double trashIconSize = 60;
+    double trashIconBottom = 20;
+    trashArea = Rect.fromLTWH(
+        MediaQuery.of(context).size.width / 2 - trashIconSize / 2,
+        MediaQuery.of(context).size.height * 0.85 -
+            trashIconSize -
+            trashIconBottom,
+        trashIconSize,
+        trashIconSize);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -73,49 +256,78 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
-                height: MediaQuery.sizeOf(context).height * 0.80,
+                height: MediaQuery.sizeOf(context).height * 0.85,
                 child: Stack(
                   children: [
                     Container(
                       width: double.infinity,
                       height: double.infinity,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: backgroundColor,
                       ),
                       child: Stack(
-                        children: draggableImages.map((draggableImage) {
-                          return Positioned(
-                            left: draggableImage.position.dx,
-                            top: draggableImage.position.dy,
-                            child: Draggable<String>(
-                              data: draggableImage.url,
-                              onDragStarted: () {
-                                setState(() {
-                                  isDragging = true;
-                                  moveImageToTop(draggableImage.url);
-                                });
-                              },
-                              onDraggableCanceled: (_, __) {
-                                setState(() {
-                                  isDragging = false;
-                                });
-                              },
-                              feedback: Image.network(
-                                draggableImage.url,
-                                width: 200,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
-                              childWhenDragging: Container(),
-                              onDragEnd: (details) {
-                                setState(() {
-                                  draggableImage.position = details.offset;
-                                  isDragging = false;
-                                });
-                              },
+                        children: [
+                          ...draggableImages.map((draggableImage) {
+                            return Positioned(
+                              left: draggableImage.position.dx,
+                              top: draggableImage.position.dy,
                               child: GestureDetector(
                                 onTap: () {
-                                  moveImageToTop(draggableImage.url);
+                                  setState(() {
+                                    moveImageToTop(draggableImage.url);
+                                  });
+                                },
+                                onPanStart: (details) {
+                                  final RenderBox box =
+                                      context.findRenderObject() as RenderBox;
+                                  final Offset localPosition =
+                                      box.globalToLocal(details.globalPosition);
+                                  final Offset imageLocalPosition =
+                                      localPosition - draggableImage.position;
+
+                                  if (isPointNotTransparent(
+                                      draggableImage, imageLocalPosition)) {
+                                    setState(() {
+                                      draggableImage.isDragging = true;
+                                      draggedImageUrl = draggableImage.url;
+                                      moveImageToTop(draggableImage.url);
+                                      isImageBeingDragged = true;
+                                      currentDragPosition =
+                                          details.globalPosition;
+                                    });
+                                  }
+                                },
+                                onPanUpdate: (details) {
+                                  if (draggableImage.isDragging &&
+                                      draggedImageUrl == draggableImage.url) {
+                                    setState(() {
+                                      draggableImage.position += details.delta;
+                                      currentDragPosition =
+                                          details.globalPosition;
+                                      if (trashArea
+                                          .contains(currentDragPosition!)) {
+                                        trashIconColor = Colors.red;
+                                      } else {
+                                        trashIconColor = Colors.black;
+                                      }
+                                    });
+                                  }
+                                },
+                                onPanEnd: (details) {
+                                  setState(() {
+                                    draggableImage.isDragging = false;
+                                    draggedImageUrl = null;
+                                    isImageBeingDragged = false;
+
+                                    if (currentDragPosition != null &&
+                                        trashArea
+                                            .contains(currentDragPosition!)) {
+                                      deleteImage(draggableImage.url);
+                                    }
+                                    draggedImageUrl = null;
+                                    currentDragPosition = null;
+                                    trashIconColor = Colors.black;
+                                  });
                                 },
                                 child: Image.network(
                                   draggableImage.url,
@@ -124,16 +336,26 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                   fit: BoxFit.cover,
                                 ),
                               ),
+                            );
+                          }).toList(),
+                          if (isImageBeingDragged)
+                            Positioned(
+                              bottom: 20,
+                              left: MediaQuery.of(context).size.width / 2 - 30,
+                              child: Icon(
+                                Icons.delete,
+                                color: trashIconColor,
+                                size: 50,
+                              ),
                             ),
-                          );
-                        }).toList(),
+                        ],
                       ),
                     ),
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        if (!isDragging)
+                        if (draggedImageUrl == null)
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
@@ -177,9 +399,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                         .secondaryBackground,
                                     size: 24,
                                   ),
-                                  onPressed: () {
-                                    print('IconButton pressed ...');
-                                  },
+                                  onPressed: _showColorPicker,
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -224,17 +444,14 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
               ),
               Container(
                 width: double.infinity,
-                height: 100,
+                height: MediaQuery.sizeOf(context).height * 0.10,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
+                  border: Border(top: BorderSide(color: Colors.black)),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Divider(
-                      thickness: 1,
-                      color: FlutterFlowTheme.of(context).primaryText,
-                    ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Row(

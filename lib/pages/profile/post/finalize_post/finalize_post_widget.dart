@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../../components/create_outfit_search_model.dart';
-import '../../create_outfit/draggable_image.dart';
 
 import 'finalize_post_model.dart';
 export 'finalize_post_model.dart';
