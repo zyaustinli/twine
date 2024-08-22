@@ -65,6 +65,9 @@ dependencies:
   video_player_avfoundation: 2.6.1
   video_player_platform_interface: 6.2.2
   video_player_web: 2.3.1
+  sizer: ^3.0.3
+  flutter_colorpicker: ^1.0.3
+
 
 
   # The following adds the Cupertino Icons font to your application.

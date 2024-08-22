@@ -9,20 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'create_outfit_model.dart';
 export 'create_outfit_model.dart';
 
 import './../../../components/create_outfit_search_widget.dart';
-
-class DraggableImage {
-  final String url;
-  Offset position;
-  ui.Image? image;
-  List<List<bool>>? hitMap;
-
-  DraggableImage(this.url, this.position);
-}
 
 class CreateOutfitWidget extends StatefulWidget {
   const CreateOutfitWidget({super.key});
@@ -31,12 +23,27 @@ class CreateOutfitWidget extends StatefulWidget {
   State<CreateOutfitWidget> createState() => _CreateOutfitWidgetState();
 }
 
+class DraggableImage {
+  final String url;
+  Offset position;
+  ui.Image? image;
+  List<List<bool>>? hitMap;
+  bool isDragging = false;
+  DraggableImage(this.url, this.position);
+}
+
 class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
   late CreateOutfitModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<DraggableImage> draggableImages = [];
-  bool isDragging = false;
+  String? draggedImageUrl;
+  bool isImageBeingDragged = false;
+  Offset? currentDragPosition;
+  late Rect trashArea;
+  Color trashIconColor = Colors.black;
+
+  Color backgroundColor = Colors.white; // Default background color
 
   @override
   void initState() {
@@ -48,6 +55,12 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
   void dispose() {
     _model.dispose();
     super.dispose();
+  }
+
+  void deleteImage(String imageUrl) {
+    setState(() {
+      draggableImages.removeWhere((image) => image.url == imageUrl);
+    });
   }
 
   Future<List<List<bool>>> computeHitMap(ui.Image image) async {
@@ -129,49 +142,109 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
   void moveImageToTop(String imageUrl) {
     setState(() {
       int index = draggableImages.indexWhere((image) => image.url == imageUrl);
-      if (index != -1) {
+      if (index != -1 && index != draggableImages.length - 1) {
         DraggableImage image = draggableImages.removeAt(index);
         draggableImages.add(image);
       }
     });
   }
 
-  bool isPointNotTransparent(DraggableImage draggableImage, Offset localPosition, {int radius = 100}) {
-  if (draggableImage.hitMap == null || draggableImage.image == null) {
-    print("HitMap or Image is null");
-    return true;
-  }
+  bool isPointNotTransparent(
+      DraggableImage draggableImage, Offset localPosition,
+      {int radius = 100}) {
+    if (draggableImage.hitMap == null || draggableImage.image == null) {
+      print("HitMap or Image is null");
+      return true;
+    }
 
-  final int imageWidth = draggableImage.image!.width;
-  final int imageHeight = draggableImage.image!.height;
-  
-  final int centerX = (localPosition.dx * imageWidth / 200).round();
-  final int centerY = (localPosition.dy * imageHeight / 200).round();
+    final int imageWidth = draggableImage.image!.width;
+    final int imageHeight = draggableImage.image!.height;
 
-  final int startX = (centerX - radius).clamp(0, imageWidth - 1);
-  final int endX = (centerX + radius).clamp(0, imageWidth - 1);
-  final int startY = (centerY - radius).clamp(0, imageHeight - 1);
-  final int endY = (centerY + radius).clamp(0, imageHeight - 1);
+    final int centerX = (localPosition.dx * imageWidth / 200).round();
+    final int centerY = (localPosition.dy * imageHeight / 200).round();
 
-  print("Checking area: ($startX, $startY) to ($endX, $endY)");
-  print("Image size: ${imageWidth}x${imageHeight}");
-  print("HitMap size: ${draggableImage.hitMap!.length}x${draggableImage.hitMap![0].length}");
+    final int startX = (centerX - radius).clamp(0, imageWidth - 1);
+    final int endX = (centerX + radius).clamp(0, imageWidth - 1);
+    final int startY = (centerY - radius).clamp(0, imageHeight - 1);
+    final int endY = (centerY + radius).clamp(0, imageHeight - 1);
 
-  for (int y = startY; y <= endY; y++) {
-    for (int x = startX; x <= endX; x++) {
-      if (draggableImage.hitMap![y][x]) {
-        print("Found non-transparent pixel at ($x, $y)");
-        return true;
+    print("Checking area: ($startX, $startY) to ($endX, $endY)");
+    print("Image size: ${imageWidth}x${imageHeight}");
+    print(
+        "HitMap size: ${draggableImage.hitMap!.length}x${draggableImage.hitMap![0].length}");
+
+    for (int y = startY; y <= endY; y++) {
+      for (int x = startX; x <= endX; x++) {
+        if (draggableImage.hitMap![y][x]) {
+          print("Found non-transparent pixel at ($x, $y)");
+          return true;
+        }
       }
     }
+
+    print("All checked pixels are transparent");
+    return false;
   }
 
-  print("All checked pixels are transparent");
-  return false;
-}
+  void _showColorPicker() {
+    Color currentColor = Colors.white; // Default color, change as needed
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: currentColor,
+              onColorChanged: (Color color) {
+                setState(() {
+                  currentColor = color;
+                  backgroundColor = color;
+                });
+              },
+              colorPickerWidth: 300,
+              pickerAreaHeightPercent: 0.7,
+              enableAlpha: false,
+              labelTypes: [],
+              displayThumbColor: false,
+              paletteType: PaletteType.hsl,
+              pickerAreaBorderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(2),
+                topRight: Radius.circular(2),
+              ),
+              hexInputBar: false,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Apply the selected color to the background
+                setState(() {
+                  // Assuming you're changing the scaffold background color
+                  // You might need to adjust this based on your app structure
+                  backgroundColor = currentColor;
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    double trashIconSize = 60;
+    double trashIconBottom = 20;
+    trashArea = Rect.fromLTWH(
+        MediaQuery.of(context).size.width / 2 - trashIconSize / 2,
+        MediaQuery.of(context).size.height * 0.85 -
+            trashIconSize -
+            trashIconBottom,
+        trashIconSize,
+        trashIconSize);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -183,65 +256,106 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
-                height: MediaQuery.sizeOf(context).height * 0.80,
+                height: MediaQuery.sizeOf(context).height * 0.85,
                 child: Stack(
                   children: [
                     Container(
                       width: double.infinity,
                       height: double.infinity,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: backgroundColor,
                       ),
                       child: Stack(
-                        children: draggableImages.map((draggableImage) {
-                          return Positioned(
-                            left: draggableImage.position.dx,
-                            top: draggableImage.position.dy,
-                            child: GestureDetector(
-                              onPanStart: (details) {
-                                final RenderBox box =
-                                    context.findRenderObject() as RenderBox;
-                                final Offset localPosition =
-                                    box.globalToLocal(details.globalPosition);
-                                final Offset imageLocalPosition =
-                                    localPosition - draggableImage.position;
-
-                                if (isPointNotTransparent(
-                                    draggableImage, imageLocalPosition)) {
+                        children: [
+                          ...draggableImages.map((draggableImage) {
+                            return Positioned(
+                              left: draggableImage.position.dx,
+                              top: draggableImage.position.dy,
+                              child: GestureDetector(
+                                onTap: () {
                                   setState(() {
-                                    isDragging = true;
                                     moveImageToTop(draggableImage.url);
                                   });
-                                }
-                              },
-                              onPanUpdate: (details) {
-                                if (isDragging) {
+                                },
+                                onPanStart: (details) {
+                                  final RenderBox box =
+                                      context.findRenderObject() as RenderBox;
+                                  final Offset localPosition =
+                                      box.globalToLocal(details.globalPosition);
+                                  final Offset imageLocalPosition =
+                                      localPosition - draggableImage.position;
+
+                                  if (isPointNotTransparent(
+                                      draggableImage, imageLocalPosition)) {
+                                    setState(() {
+                                      draggableImage.isDragging = true;
+                                      draggedImageUrl = draggableImage.url;
+                                      moveImageToTop(draggableImage.url);
+                                      isImageBeingDragged = true;
+                                      currentDragPosition =
+                                          details.globalPosition;
+                                    });
+                                  }
+                                },
+                                onPanUpdate: (details) {
+                                  if (draggableImage.isDragging &&
+                                      draggedImageUrl == draggableImage.url) {
+                                    setState(() {
+                                      draggableImage.position += details.delta;
+                                      currentDragPosition =
+                                          details.globalPosition;
+                                      if (trashArea
+                                          .contains(currentDragPosition!)) {
+                                        trashIconColor = Colors.red;
+                                      } else {
+                                        trashIconColor = Colors.black;
+                                      }
+                                    });
+                                  }
+                                },
+                                onPanEnd: (details) {
                                   setState(() {
-                                    draggableImage.position += details.delta;
+                                    draggableImage.isDragging = false;
+                                    draggedImageUrl = null;
+                                    isImageBeingDragged = false;
+
+                                    if (currentDragPosition != null &&
+                                        trashArea
+                                            .contains(currentDragPosition!)) {
+                                      deleteImage(draggableImage.url);
+                                    }
+                                    draggedImageUrl = null;
+                                    currentDragPosition = null;
+                                    trashIconColor = Colors.black;
                                   });
-                                }
-                              },
-                              onPanEnd: (details) {
-                                setState(() {
-                                  isDragging = false;
-                                });
-                              },
-                              child: Image.network(
-                                draggableImage.url,
-                                width: 200,
-                                height: 200,
-                                fit: BoxFit.cover,
+                                },
+                                child: Image.network(
+                                  draggableImage.url,
+                                  width: 200,
+                                  height: 200,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          if (isImageBeingDragged)
+                            Positioned(
+                              bottom: 20,
+                              left: MediaQuery.of(context).size.width / 2 - 30,
+                              child: Icon(
+                                Icons.delete,
+                                color: trashIconColor,
+                                size: 50,
                               ),
                             ),
-                          );
-                        }).toList(),
+                        ],
                       ),
                     ),
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        if (!isDragging)
+                        if (draggedImageUrl == null)
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
@@ -285,9 +399,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                         .secondaryBackground,
                                     size: 24,
                                   ),
-                                  onPressed: () {
-                                    print('IconButton pressed ...');
-                                  },
+                                  onPressed: _showColorPicker,
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -332,17 +444,14 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
               ),
               Container(
                 width: double.infinity,
-                height: 100,
+                height: MediaQuery.sizeOf(context).height * 0.10,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
+                  border: Border(top: BorderSide(color: Colors.black)),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Divider(
-                      thickness: 1,
-                      color: FlutterFlowTheme.of(context).primaryText,
-                    ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Row(
