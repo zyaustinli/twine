@@ -1,19 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:redthread/firebase_options.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 import 'package:sizer/sizer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 //import 'pages/catalog/swipe/swipe_widget.dart';
 
 import 'pages/catalog/search/search_widget.dart';
 import 'pages/catalog/search_results/search_results_widget.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +23,9 @@ void main() async {
   usePathUrlStrategy();
 
   await FlutterFlowTheme.initialize();
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -80,6 +84,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 }
+
 class NavBarPage extends StatefulWidget {
   const NavBarPage({super.key, this.initialPage, this.page});
 
@@ -145,7 +150,9 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              currentIndex == 2 ? Icons.shopping_cart : Icons.shopping_cart_outlined,
+              currentIndex == 2
+                  ? Icons.shopping_cart
+                  : Icons.shopping_cart_outlined,
               color: FlutterFlowTheme.of(context).primaryText,
               size: 24.0,
             ),
@@ -172,6 +179,7 @@ class _NavBarPageState extends State<NavBarPage> {
     );
   }
 }
+
 GoRouter createRouter(AppStateNotifier appStateNotifier) {
   return GoRouter(
     initialLocation: '/',
@@ -184,14 +192,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) {
       GoRoute(
         name: 'search',
         path: '/search',
-        builder: (context, state) => const SearchWidget(), // Add your SearchScreen here
+        builder: (context, state) =>
+            const SearchWidget(), // Add your SearchScreen here
       ),
       GoRoute(
-        name : 'search_results',
+        name: 'search_results',
         path: '/search_results',
         builder: (context, state) => SearchResultsWidget(
-          initialQuery: (state.extra as Map<String, dynamic>?)?['query'] as String? ?? '',
-
+          initialQuery:
+              (state.extra as Map<String, dynamic>?)?['query'] as String? ?? '',
         ),
       ),
       // Add other routes as needed
