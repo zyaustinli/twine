@@ -29,6 +29,7 @@ class DraggableImage {
   ui.Image? image;
   List<List<bool>>? hitMap;
   bool isDragging = false;
+  double scale = 1.0;
   DraggableImage(this.url, this.position);
 }
 
@@ -44,6 +45,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
   Color trashIconColor = Colors.black;
 
   Color backgroundColor = Colors.white; // Default background color
+  double _lastScale = 1.0;
 
   @override
   void initState() {
@@ -131,7 +133,8 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
               MediaQuery.of(context).size.height * 0.375 - 100),
         )
           ..image = image
-          ..hitMap = hitMap);
+          ..hitMap = hitMap
+          ..scale = 1.0); // Initialize scale
       });
       print("Image added. Total images: ${draggableImages.length}");
     } catch (e) {
@@ -160,13 +163,20 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
     final int imageWidth = draggableImage.image!.width;
     final int imageHeight = draggableImage.image!.height;
 
-    final int centerX = (localPosition.dx * imageWidth / 200).round();
-    final int centerY = (localPosition.dy * imageHeight / 200).round();
+    // Adjust for scaling
+    final double scaledRadius = radius / draggableImage.scale;
+    final double scaledX = localPosition.dx / draggableImage.scale;
+    final double scaledY = localPosition.dy / draggableImage.scale;
 
-    final int startX = (centerX - radius).clamp(0, imageWidth - 1);
-    final int endX = (centerX + radius).clamp(0, imageWidth - 1);
-    final int startY = (centerY - radius).clamp(0, imageHeight - 1);
-    final int endY = (centerY + radius).clamp(0, imageHeight - 1);
+    final int centerX = (scaledX * imageWidth / 200).round();
+    final int centerY = (scaledY * imageHeight / 200).round();
+
+    final int startX =
+        (centerX - scaledRadius).clamp(0, imageWidth - 1).round();
+    final int endX = (centerX + scaledRadius).clamp(0, imageWidth - 1).round();
+    final int startY =
+        (centerY - scaledRadius).clamp(0, imageHeight - 1).round();
+    final int endY = (centerY + scaledRadius).clamp(0, imageHeight - 1).round();
 
     print("Checking area: ($startX, $startY) to ($endX, $endY)");
     print("Image size: ${imageWidth}x${imageHeight}");
@@ -272,38 +282,54 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                               left: draggableImage.position.dx,
                               top: draggableImage.position.dy,
                               child: GestureDetector(
-                                onTap: () {
+                                onScaleStart: (ScaleStartDetails details) {
                                   setState(() {
+                                    draggableImage.isDragging = true;
+                                    draggedImageUrl = draggableImage.url;
                                     moveImageToTop(draggableImage.url);
+                                    isImageBeingDragged = true;
+                                    currentDragPosition = details.focalPoint;
                                   });
                                 },
-                                onPanStart: (details) {
-                                  final RenderBox box =
-                                      context.findRenderObject() as RenderBox;
-                                  final Offset localPosition =
-                                      box.globalToLocal(details.globalPosition);
-                                  final Offset imageLocalPosition =
-                                      localPosition - draggableImage.position;
-
-                                  if (isPointNotTransparent(
-                                      draggableImage, imageLocalPosition)) {
-                                    setState(() {
-                                      draggableImage.isDragging = true;
-                                      draggedImageUrl = draggableImage.url;
-                                      moveImageToTop(draggableImage.url);
-                                      isImageBeingDragged = true;
-                                      currentDragPosition =
-                                          details.globalPosition;
-                                    });
-                                  }
-                                },
-                                onPanUpdate: (details) {
+                                onScaleUpdate: (ScaleUpdateDetails details) {
                                   if (draggableImage.isDragging &&
                                       draggedImageUrl == draggableImage.url) {
                                     setState(() {
-                                      draggableImage.position += details.delta;
-                                      currentDragPosition =
-                                          details.globalPosition;
+                                      // Calculate new position
+                                      Offset newPosition =
+                                          draggableImage.position +
+                                              details.focalPointDelta;
+
+                                      // Get the size of the screen
+                                      Size screenSize =
+                                          MediaQuery.of(context).size;
+
+                                      // Calculate the scaled size of the image
+                                      double scaledWidth =
+                                          200 * draggableImage.scale;
+                                      double scaledHeight =
+                                          200 * draggableImage.scale;
+
+                                      // Constrain the new position within the screen boundaries
+                                      newPosition = Offset(
+                                        newPosition.dx.clamp(
+                                            0, screenSize.width - scaledWidth),
+                                        newPosition.dy.clamp(0,
+                                            screenSize.height - scaledHeight),
+                                      );
+
+                                      // Update the position
+                                      draggableImage.position = newPosition;
+                                      currentDragPosition = details.focalPoint;
+
+                                      // Update scale more gradually
+                                      if ((details.scale - 1.0).abs() > 0.01) {
+                                        double newScale =
+                                            _lastScale * details.scale;
+                                        draggableImage.scale =
+                                            newScale.clamp(0.5, 3.0);
+                                      }
+
                                       if (trashArea
                                           .contains(currentDragPosition!)) {
                                         trashIconColor = Colors.red;
@@ -313,7 +339,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                     });
                                   }
                                 },
-                                onPanEnd: (details) {
+                                onScaleEnd: (ScaleEndDetails details) {
                                   setState(() {
                                     draggableImage.isDragging = false;
                                     draggedImageUrl = null;
@@ -329,11 +355,14 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                     trashIconColor = Colors.black;
                                   });
                                 },
-                                child: Image.network(
-                                  draggableImage.url,
-                                  width: 200,
-                                  height: 200,
-                                  fit: BoxFit.cover,
+                                child: Transform.scale(
+                                  scale: draggableImage.scale,
+                                  child: Image.network(
+                                    draggableImage.url,
+                                    width: 200,
+                                    height: 200,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             );
