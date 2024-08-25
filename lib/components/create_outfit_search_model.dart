@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../pages/profile/create_outfit/database_outfit.dart';
-import '../pages/profile/create_outfit/product_class.dart';
+import '../classes/product_class.dart';
 
 class CreateOutfitSearchModel extends ChangeNotifier {
-  final DatabaseService _databaseService = DatabaseService();
+  final ProductDatabaseService _databaseService = ProductDatabaseService();
   final TextEditingController textController = TextEditingController();
   final FocusNode textFieldFocusNode = FocusNode();
   List<Product> searchResults = [];

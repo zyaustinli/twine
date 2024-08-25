@@ -1,14 +1,20 @@
+import 'package:redthread/index.dart';
+
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
+import '/flutter_flow/flutter_flow_count_controller.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'cart_model.dart';
 export 'cart_model.dart';
 import 'cart_item.dart';
 
 import '../../../components/cart_item_widget.dart';
+import '../checkout/checkout_widget.dart';
 
 class CartWidget extends StatefulWidget {
   const CartWidget({super.key});
@@ -32,16 +38,15 @@ class _CartWidgetState extends State<CartWidget> {
     _model.cartItems = [
       //just a test model
       CartItem(
-        image:
-            'https://m.media-amazon.com/images/I/51ulmT3YUZL._AC_UY1000_.jpg',
-        brandName: 'Brand 1',
-        productName: 'Product 1',
-        price: 29.99,
-        size: 'M',
-        color: 'Red',
-        discount: 0,
-        quantity: 1
-      )
+          image:
+              'https://m.media-amazon.com/images/I/51ulmT3YUZL._AC_UY1000_.jpg',
+          brandName: 'Brand 1',
+          productName: 'Product 1',
+          price: 29.99,
+          size: 'M',
+          color: 'Red',
+          discount: 0,
+          quantity: 1)
     ];
   }
 
@@ -205,7 +210,15 @@ class _CartWidgetState extends State<CartWidget> {
                         children: [
                           FFButtonWidget(
                             onPressed: () {
-                              print('Button pressed ...');
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const CheckoutWidget(),
+                                    settings: RouteSettings(
+                                      arguments: _model.cartItems,
+                                    ),
+                                  ));
                             },
                             text: 'PROCEED TO CHECKOUT',
                             options: FFButtonOptions(
@@ -278,9 +291,9 @@ class _CartWidgetState extends State<CartWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Align(
-                    alignment: const AlignmentDirectional(0, 0),
+                    alignment: AlignmentDirectional(0, 0),
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(25, 10, 10, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(25, 10, 10, 0),
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -293,7 +306,7 @@ class _CartWidgetState extends State<CartWidget> {
                           lineHeight: 15,
                           animation: true,
                           animateFromLastPercent: true,
-                          progressColor: const Color(0xFFFF0000),
+                          progressColor: Color(0xFFFF0000),
                           backgroundColor: FlutterFlowTheme.of(context).accent4,
                           padding: EdgeInsets.zero,
                         ),

@@ -3,7 +3,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'create_outfit_search_model.dart';
 import '../components/product_widget.dart';
-import '../pages/profile/create_outfit/product_class.dart';
+import '../classes/product_class.dart';
 
 class CreateOutfitSearchWidget extends StatefulWidget {
   final Function(String imageUrl) onImageSelected;
