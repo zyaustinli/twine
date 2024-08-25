@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'search_model.dart';
 export 'search_model.dart';
 
+import '../search_results/search_results_widget.dart';
+
 class SearchWidget extends StatefulWidget {
   const SearchWidget({super.key});
 
@@ -37,17 +39,16 @@ class _SearchWidgetState extends State<SearchWidget> {
   }
 
   void _handleSearch() {
-    final query = _model.textController.text;
-    if (query.isNotEmpty) {
-      context.pushNamed(
-        'search_results',
-        queryParameters: {'query': query},
-        extra: <String, dynamic>{
-          'query': query,
-        },
-      );
-    }
+  final query = _model.textController.text;
+  if (query.isNotEmpty) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SearchResultsWidget(initialQuery: query),
+      ),
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {

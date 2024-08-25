@@ -1,3 +1,5 @@
+import 'package:redthread/pages/catalog/search_results/search_database_service.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -5,11 +7,17 @@ import 'package:flutter/material.dart';
 
 import 'search_results_model.dart';
 export 'search_results_model.dart';
+import '../../../classes/post_class.dart';
+import '../../../classes/product_class.dart';
+import '../../../classes/user_class.dart';
+import '../../../components/product_widget.dart';
+import '../../../components/user_list_widget.dart';
 
 class SearchResultsWidget extends StatefulWidget {
   final String initialQuery;
 
-  const SearchResultsWidget({super.key, this.initialQuery = ''});
+  const SearchResultsWidget({Key? key, this.initialQuery = ''})
+      : super(key: key);
 
   @override
   State<SearchResultsWidget> createState() => _SearchResultsWidgetState();
@@ -18,6 +26,11 @@ class SearchResultsWidget extends StatefulWidget {
 class _SearchResultsWidgetState extends State<SearchResultsWidget>
     with TickerProviderStateMixin {
   late SearchResultsModel _model;
+  final SearchDatabaseService _searchDatabaseService = SearchDatabaseService();
+  List<Product> filteredProducts = [];
+  List<Post> filteredPosts = [];
+  List<User> filteredUsers = [];
+  bool isLoading = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -34,6 +47,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
       length: 3,
       initialIndex: 0,
     )..addListener(() => setState(() {}));
+    _performSearch(widget.initialQuery);
   }
 
   @override
@@ -43,12 +57,30 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
     super.dispose();
   }
 
-  void _handleSearch() {
-    final query = _model.textController.text;
-    if (query.isNotEmpty) {
-      // Perform the search action here
-      // For now, we'll just print the query
-      print('Searching for: $query');
+  Future<void> _performSearch(String query) async {
+    if (query.isEmpty) return;
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final products =
+          await _searchDatabaseService.getProducts(searchQuery: query);
+      final posts = await _searchDatabaseService.getPosts();
+      final users = await _searchDatabaseService.getUsers(searchQuery: query);
+
+      setState(() {
+        filteredProducts = products;
+        filteredPosts = posts;
+        filteredUsers = users;
+        isLoading = false;
+      });
+    } catch (e) {
+      // Handle any errors here
+      print('Error performing search: $e');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -108,7 +140,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                             onPressed: () {
                               Navigator.of(context).pop();
                               Navigator.of(context).pop();
-                               //pop twice to go back to search and then back to whatever was before
+                              //pop twice to go back to search and then back to whatever was before
                             },
                           ),
                           Container(
@@ -160,9 +192,12 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                     fontSize: 12,
                                     letterSpacing: 0,
                                   ),
-                              onFieldSubmitted: (_) => _handleSearch(),
-                              validator: _model.textControllerValidator
-                                  .asValidator(context),
+                              onFieldSubmitted: (value) {
+                                if (value.trim().isNotEmpty) {
+                                  _performSearch(value.trim());
+                                }
+                                // If value is empty, do nothing
+                              },
                             ),
                           ),
                         ],
@@ -212,11 +247,11 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                         controller: _model.tabBarController,
                         children: [
                           Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                10, 0, 10, 0),
                             child: Container(
                               decoration: const BoxDecoration(),
-                              child: GridView(
+                              child: GridView.builder(
                                 padding: EdgeInsets.zero,
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
@@ -226,632 +261,58 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                   childAspectRatio: 0.75,
                                 ),
                                 scrollDirection: Axis.vertical,
-                                children: [
-                                  Container(
-                                    width: 100,
-                                    height: 180,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Container(
-                                          width: 180,
-                                          height: 180,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(0),
-                                            child: Image.network(
-                                              'https://picsum.photos/seed/751/600',
-                                              width: 300,
-                                              height: 200,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: double.infinity,
-                                          height: 60,
-                                          decoration: const BoxDecoration(),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0, 5, 0, 0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'product_name',
-                                                  maxLines: 2,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0,
-                                                      ),
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      'price',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Readex Pro',
-                                                            letterSpacing: 0,
-                                                          ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10, 0, 0, 0),
-                                                      child: Text(
-                                                        '4.6 ★',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Readex Pro',
-                                                              letterSpacing: 0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 100,
-                                    height: 180,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Container(
-                                          width: 180,
-                                          height: 180,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(0),
-                                            child: Image.network(
-                                              'https://picsum.photos/seed/751/600',
-                                              width: 300,
-                                              height: 200,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: double.infinity,
-                                          height: 60,
-                                          decoration: const BoxDecoration(),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0, 5, 0, 0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'product_name',
-                                                  maxLines: 2,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0,
-                                                      ),
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      'price',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Readex Pro',
-                                                            letterSpacing: 0,
-                                                          ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10, 0, 0, 0),
-                                                      child: Text(
-                                                        '4.6 ★',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Readex Pro',
-                                                              letterSpacing: 0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 100,
-                                    height: 180,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Container(
-                                          width: 180,
-                                          height: 180,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(0),
-                                            child: Image.network(
-                                              'https://picsum.photos/seed/751/600',
-                                              width: 300,
-                                              height: 200,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: double.infinity,
-                                          height: 60,
-                                          decoration: const BoxDecoration(),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0, 5, 0, 0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'product_name',
-                                                  maxLines: 2,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0,
-                                                      ),
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      'price',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Readex Pro',
-                                                            letterSpacing: 0,
-                                                          ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10, 0, 0, 0),
-                                                      child: Text(
-                                                        '4.6 ★',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Readex Pro',
-                                                              letterSpacing: 0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 100,
-                                    height: 180,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Container(
-                                          width: 180,
-                                          height: 180,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(0),
-                                            child: Image.network(
-                                              'https://picsum.photos/seed/751/600',
-                                              width: 300,
-                                              height: 200,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: double.infinity,
-                                          height: 60,
-                                          decoration: const BoxDecoration(),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0, 5, 0, 0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'product_name',
-                                                  maxLines: 2,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0,
-                                                      ),
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      'price',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Readex Pro',
-                                                            letterSpacing: 0,
-                                                          ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10, 0, 0, 0),
-                                                      child: Text(
-                                                        '4.6 ★',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Readex Pro',
-                                                              letterSpacing: 0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                                itemCount: filteredProducts.length,
+                                itemBuilder: (context, index) {
+                                  return ProductWidget(
+                                      product: filteredProducts[index],
+                                      onTap: () {
+                                        //should create a singleview page, and push the product id so that it can retrieve product data from firebase
+                                      });
+                                },
                               ),
                             ),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                            child: GridView(
-                              padding: EdgeInsets.zero,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                                childAspectRatio: 0.7,
-                              ),
-                              scrollDirection: Axis.vertical,
-                              children: [
-                                Container(
-                                  width: 100,
-                                  height: 180,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 10, 0),
+                              child: GridView.builder(
+                                padding: EdgeInsets.zero,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                  childAspectRatio: 0.7,
+                                ),
+                                itemCount: filteredPosts.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      //navigate to post_view page and pass ni data again
+                                    },
                                     child: Image.network(
-                                      'https://picsum.photos/seed/141/600',
-                                      width: 300,
-                                      height: 200,
+                                      filteredPosts[index].imageUrl,
                                       fit: BoxFit.cover,
                                     ),
-                                  ),
-                                ),
-                                Container(
-                                  width: 100,
-                                  height: 180,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                      'https://picsum.photos/seed/254/600',
-                                      width: 300,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: 100,
-                                  height: 180,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                      'https://picsum.photos/seed/335/600',
-                                      width: 300,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: 100,
-                                  height: 180,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                      'https://picsum.photos/seed/46/600',
-                                      width: 300,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    'https://picsum.photos/seed/335/600',
-                                    width: 300,
-                                    height: 200,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    'https://picsum.photos/seed/335/600',
-                                    width: 300,
-                                    height: 200,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    'https://picsum.photos/seed/335/600',
-                                    width: 300,
-                                    height: 200,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          ListView(
+                                  );
+                                },
+                              )),
+                          ListView.builder(
                             padding: EdgeInsets.zero,
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              Container(
-                                width: double.infinity,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                      width: 80,
-                                      height: 80,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/970/600',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 180,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Align(
-                                            alignment:
-                                                const AlignmentDirectional(-1, -1),
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0, 10, 0, 0),
-                                              child: Text(
-                                                'Username',
-                                                textAlign: TextAlign.start,
-                                                maxLines: 1,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          fontSize: 16,
-                                                          letterSpacing: 0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                              ),
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Align(
-                                                alignment:
-                                                    const AlignmentDirectional(-1, 0),
-                                                child: Container(
-                                                  width: 125,
-                                                  height: 20,
-                                                  decoration: const BoxDecoration(),
-                                                  child: Text(
-                                                    'last_message',
-                                                    textAlign: TextAlign.start,
-                                                    maxLines: 1,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          fontSize: 12,
-                                                          letterSpacing: 0,
-                                                          fontWeight:
-                                                              FontWeight.w200,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                            itemCount: filteredUsers.length,
+                            
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 5),
+                                child: UserListWidget(
+                                user: filteredUsers[index],
+                                onTap: () {
+                                  //should take you to userprofile page, passing in id so taht it can retrieve user data from firebase
+                                },
                               ),
-                            ],
+                              );
+                              
+                            },
                           ),
                         ],
                       ),

@@ -1688,7 +1688,7 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
               Align(
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: Container(
-                  height: 50.0,
+                  height: 70.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     border: Border.all(
@@ -1697,10 +1697,10 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                     ),
                   ),
                   child: Align(
-                    alignment: const AlignmentDirectional(0.0, 1.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(
-                          0.0, 0.0, 0.0, 5.0),
+                          0.0, 0.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1713,7 +1713,7 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                             text: 'ADD TO CART',
                             options: FFButtonOptions(
                               width: 170.0,
-                              height: 40.0,
+                              height: 50.0,
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   18.0, 0.0, 18.0, 0.0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
@@ -1741,13 +1741,13 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                 FlutterFlowTheme.of(context).primaryBackground,
                             borderRadius: 5.0,
                             borderWidth: 1.0,
-                            buttonSize: 40.0,
+                            buttonSize: 50.0,
                             fillColor:
                                 FlutterFlowTheme.of(context).primaryBackground,
                             icon: Icon(
                               Icons.bookmark_border,
                               color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
+                              size: 32.0,
                             ),
                             onPressed: () {
                               print('IconButton pressed ...');
@@ -1758,13 +1758,13 @@ class _SingleviewWidgetState extends State<SingleviewWidget> {
                                 FlutterFlowTheme.of(context).primaryBackground,
                             borderRadius: 5.0,
                             borderWidth: 1.0,
-                            buttonSize: 40.0,
+                            buttonSize: 50.0,
                             fillColor:
                                 FlutterFlowTheme.of(context).primaryBackground,
                             icon: Icon(
                               Icons.favorite_border,
                               color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
+                              size: 32.0,
                             ),
                             onPressed: () {
                               print('IconButton pressed ...');

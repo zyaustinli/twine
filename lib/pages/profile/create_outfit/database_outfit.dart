@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'product_class.dart';
+import '../../../classes/product_class.dart';
 
-class DatabaseService {
+class ProductDatabaseService {
   // This list simulates our database
   final List<Product> _products = [
     Product(

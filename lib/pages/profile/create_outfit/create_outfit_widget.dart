@@ -310,13 +310,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                       double scaledHeight =
                                           200 * draggableImage.scale;
 
-                                      // Constrain the new position within the screen boundaries
-                                      newPosition = Offset(
-                                        newPosition.dx.clamp(
-                                            0, screenSize.width - scaledWidth),
-                                        newPosition.dy.clamp(0,
-                                            screenSize.height - scaledHeight),
-                                      );
+                                      
 
                                       // Update the position
                                       draggableImage.position = newPosition;
@@ -561,3 +555,102 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
     );
   }
 }
+
+/*
+Certainly! I'll modify the code to implement the functionality you've described. Here's how we can adapt the _CreateOutfitWidgetState class to include these new features:
+
+First, we'll add necessary imports for Firebase and image manipulation:
+
+dartCopyimport 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
+import 'dart:typed_data';
+import 'package:flutter/rendering.dart';
+
+Next, we'll add a method to capture the current state of the draggable stack as an image:
+
+dartCopyFuture<Uint8List> captureStackAsImage() async {
+  RenderRepaintBoundary boundary = context.findRenderObject() as RenderRepaintBoundary;
+  ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+  ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+  return byteData!.buffer.asUint8List();
+}
+
+We'll create a method to save the outfit data to Firestore:
+
+dartCopyFuture<void> saveOutfitData(String imageUrl) async {
+  final uuid = Uuid();
+  final outfitId = uuid.v4();
+  
+  List<Map<String, dynamic>> imagesData = draggableImages.map((image) => {
+    'url': image.url,
+    'position': {'dx': image.position.dx, 'dy': image.position.dy},
+    'scale': image.scale,
+  }).toList();
+
+  await FirebaseFirestore.instance.collection('outfits').doc(outfitId).set({
+    'id': outfitId,
+    'imageUrl': imageUrl,
+    'backgroundColor': backgroundColor.value,
+    'images': imagesData,
+    'createdAt': FieldValue.serverTimestamp(),
+  });
+}
+
+Now, let's create a method to handle the saving and uploading process:
+
+dartCopyFuture<void> saveAndUploadOutfit() async {
+  try {
+    // Capture the stack as an image
+    Uint8List imageBytes = await captureStackAsImage();
+
+    // Upload the image to Firebase Storage
+    final storageRef = FirebaseStorage.instance.ref();
+    final imageRef = storageRef.child('outfits/${Uuid().v4()}.png');
+    await imageRef.putData(imageBytes);
+    String downloadUrl = await imageRef.getDownloadURL();
+
+    // Save the outfit data to Firestore
+    await saveOutfitData(downloadUrl);
+
+    // Show success message
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Outfit saved successfully!')),
+    );
+  } catch (e) {
+    print('Error saving outfit: $e');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to save outfit. Please try again.')),
+    );
+  }
+}
+
+Finally, we'll update the onPressed callback for the chevron_right button:
+
+dartCopyPadding(
+  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+  child: FlutterFlowIconButton(
+    borderColor: FlutterFlowTheme.of(context).primaryText,
+    borderRadius: 24,
+    borderWidth: 1,
+    buttonSize: 50,
+    fillColor: FlutterFlowTheme.of(context).primaryText,
+    icon: Icon(
+      Icons.chevron_right,
+      color: FlutterFlowTheme.of(context).secondaryBackground,
+      size: 34,
+    ),
+    onPressed: saveAndUploadOutfit,
+  ),
+),
+These modifications will allow users to save their outfits to Firebase, including both the final image and the data necessary to reconstruct the draggable stack for future editing.
+To implement this fully, you'll need to:
+
+Set up Firebase in your Flutter project if you haven't already.
+Add the necessary Firebase dependencies to your pubspec.yaml file.
+Initialize Firebase in your main.dart file.
+Handle user authentication to associate outfits with specific users.
+Implement a method to load and reconstruct saved outfits for editing.
+
+Remember to handle potential errors and edge cases, such as network issues or insufficient permissions, to ensure a smooth user experience.
+*/

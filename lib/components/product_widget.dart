@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '../pages/profile/create_outfit/product_class.dart';
+import '../classes/product_class.dart';
 
 class ProductWidget extends StatelessWidget {
   final Product product;
