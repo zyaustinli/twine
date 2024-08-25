@@ -1,4 +1,5 @@
 //import '/backend/backend.dart';
+import 'package:redthread/flutter_flow/form_field_controller.dart';
 import 'package:redthread/pages/catalog/search/search_widget.dart';
 
 import '/components/rate_widget.dart';
@@ -15,6 +16,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import '../singleview/singleview_widget.dart';
 import 'package:sizer/sizer.dart';
 //import 'package:go_router/go_router.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 
 class SwipeWidget extends StatefulWidget {
   const SwipeWidget({super.key});
@@ -293,7 +295,7 @@ class _SwipeWidgetState extends State<SwipeWidget> {
                                                         .spaceBetween,
                                                 children: [
                                                   Container(
-                                                    width: 276,
+                                                    width: 30.w,
                                                     height: 40,
                                                     decoration: BoxDecoration(
                                                       color: FlutterFlowTheme
@@ -323,31 +325,55 @@ class _SwipeWidgetState extends State<SwipeWidget> {
                                                       ),
                                                     ),
                                                   ),
-                                                  FlutterFlowIconButton(
-                                                    borderColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondaryBackground,
-                                                    borderRadius: 20,
-                                                    borderWidth: 1,
-                                                    buttonSize: 40,
-                                                    fillColor: FlutterFlowTheme
-                                                            .of(context)
-                                                        .secondaryBackground,
-                                                    icon: Icon(
-                                                      Icons
-                                                          .keyboard_control_sharp,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      size: 24,
-                                                    ),
-                                                    onPressed: () {
-                                                      print(
-                                                          'IconButton pressed ...');
-                                                    },
-                                                  ),
+                                                  FlutterFlowDropDown<String>(
+                                                      controller: _model
+                                                              .dropDownValueController ??=
+                                                          FormFieldController<
+                                                              String>(null),
+                                                      options: [
+                                                        'Share',
+                                                        'Report',
+                                                        'Not Interested'
+                                                      ],
+                                                      onChanged: (val) => print(
+                                                          val),
+                                                      width: 100,
+                                                      height: 5.9.h,
+                                                      textStyle:
+                                                          FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                letterSpacing:
+                                                                    0,
+                                                              ),
+                                                      icon: Icon(
+                                                        Icons.keyboard_control,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 24,
+                                                      ),
+                                                      fillColor: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      elevation: 2,
+                                                      borderColor:
+                                                          Colors.transparent,
+                                                      borderWidth: 2,
+                                                      borderRadius: 8,
+                                                      margin:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 4, 0, 4),
+                                                      hidesUnderline: true,
+                                                      isOverButton: true,
+                                                      isSearchable: false,
+                                                      isMultiSelect: false,
+                                                      labelText: ""),
                                                 ],
                                               ),
                                               Padding(

@@ -1,4 +1,6 @@
 //import '/backend/backend.dart';
+import 'package:redthread/flutter_flow/form_field_controller.dart';
+
 import '/components/rate_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'singleview_widget.dart' show SingleviewWidget;
@@ -23,6 +25,10 @@ class SingleviewModel extends FlutterFlowModel<SingleviewWidget> {
           pageViewController!.page != null
       ? pageViewController!.page!.round()
       : 0;
+
+  // State field(s) for DropDown widget.
+  String? dropDownValue;
+  FormFieldController<String>? dropDownValueController;
 
   @override
   void initState(BuildContext context) {
