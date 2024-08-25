@@ -1,4 +1,6 @@
 //import '/backend/backend.dart';
+import 'package:redthread/flutter_flow/form_field_controller.dart';
+
 import '/components/rate_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'swipe_widget.dart' show SwipeWidget;
@@ -26,6 +28,10 @@ class SwipeModel extends FlutterFlowModel<SwipeWidget> {
       : 0;
   // Model for rate component.
   late RateModel rateModel;
+
+  // State field(s) for DropDown widget.
+  String? dropDownValue;
+  FormFieldController<String>? dropDownValueController;
 
   @override
   void initState(BuildContext context) {
