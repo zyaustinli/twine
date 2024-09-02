@@ -14,7 +14,9 @@ import 'finalize_post_model.dart';
 export 'finalize_post_model.dart';
 
 class FinalizePostWidget extends StatefulWidget {
-  const FinalizePostWidget({super.key});
+  const FinalizePostWidget({super.key, required this.selectedImages});
+
+  final List<String> selectedImages;
 
   @override
   State<FinalizePostWidget> createState() => _FinalizePostWidgetState();
@@ -26,6 +28,7 @@ class _FinalizePostWidgetState extends State<FinalizePostWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool isDragging = false;
+
   List<String> itemImages = [
     'https://picsum.photos/seed/835/600',
     'https://picsum.photos/seed/835/600'
@@ -50,7 +53,6 @@ class _FinalizePostWidgetState extends State<FinalizePostWidget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
