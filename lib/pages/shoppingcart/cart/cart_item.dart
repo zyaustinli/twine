@@ -1,4 +1,5 @@
 class CartItem {
+  final int productID;
   final String image;
   final String brandName;
   final String productName;
@@ -9,6 +10,7 @@ class CartItem {
   int quantity;
 
   CartItem({
+    required this.productID,
     required this.image,
     required this.brandName,
     required this.productName,

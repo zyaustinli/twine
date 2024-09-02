@@ -38,6 +38,7 @@ class _CartWidgetState extends State<CartWidget> {
     _model.cartItems = [
       //just a test model
       CartItem(
+          productID: 0,
           image:
               'https://m.media-amazon.com/images/I/51ulmT3YUZL._AC_UY1000_.jpg',
           brandName: 'Brand 1',
