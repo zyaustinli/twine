@@ -60,11 +60,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   page: ProfileWidget(),
                 ),
         ),
+        /*
         FFRoute(
           name: 'singleview',
           path: '/singleview',
           builder: (context, params) => const SingleviewWidget(),
         ),
+        */
         FFRoute(
           name: 'foryou',
           path: '/foryou',

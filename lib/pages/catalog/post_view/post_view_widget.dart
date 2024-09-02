@@ -5,12 +5,17 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'post_view_model.dart';
 export 'post_view_model.dart';
+import '../../../classes/post_view_class.dart';
 
 class PostViewWidget extends StatefulWidget {
-  const PostViewWidget({super.key});
+  final String postId;
+
+  const PostViewWidget({Key? key, required this.postId})
+      : super(key: key); //use post id to search up post details
 
   @override
   State<PostViewWidget> createState() => _PostViewWidgetState();
@@ -19,12 +24,44 @@ class PostViewWidget extends StatefulWidget {
 class _PostViewWidgetState extends State<PostViewWidget> {
   late PostViewModel _model;
 
+
+  List<Post> recommendedPosts = [];
+  bool isLoading = true;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => PostViewModel());
+    fetchRecommendedPosts();
+
+  }
+  Future<void> fetchRecommendedPosts() async {
+    try {
+      // Fetch similar posts from Firestore
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('posts')
+          .where('category', isEqualTo: 'your_category') // Replace with actual category
+          .limit(10) // Limit to 10 similar posts
+          .get();
+
+      setState(() {
+        recommendedPosts = querySnapshot.docs
+            .map((doc) => Post(
+                  id: doc.id,
+                  imageUrl: doc['imageUrl'],
+                  // Add other fields as necessary
+                ))
+            .toList();
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching recommended posts: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -80,7 +117,8 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                     child: Stack(
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
                           child: PageView(
                             controller: _model.pageViewController ??=
                                 PageController(initialPage: 0),
@@ -119,8 +157,8 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                         Align(
                           alignment: const AlignmentDirectional(0, 1),
                           child: Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(16, 0, 0, 16),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 0, 0, 16),
                             child: smooth_page_indicator.SmoothPageIndicator(
                               controller: _model.pageViewController ??=
                                   PageController(initialPage: 0),
@@ -163,7 +201,8 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                         child: Container(
                           width: 50,
                           height: 50,
@@ -179,7 +218,8 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                           child: Text(
                             'zeyiiii',
                             maxLines: 1,
@@ -195,7 +235,8 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
                         child: FFButtonWidget(
                           onPressed: () {
                             print('Button pressed ...');
@@ -204,9 +245,10 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                           options: FFButtonOptions(
                             width: 70,
                             height: 30,
-                            padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-                            iconPadding:
-                                const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                8, 0, 8, 0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 0),
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                             textStyle: FlutterFlowTheme.of(context)
@@ -366,7 +408,8 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10, 10, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -381,8 +424,8 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                                     ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 0, 0),
                                 child: Text(
                                   '23',
                                   style: FlutterFlowTheme.of(context)
@@ -399,14 +442,15 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 0, 0),
                                 child: Container(
                                   width: 30,
                                   height: 30,
@@ -421,8 +465,8 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 0, 0),
                                 child: Text(
                                   'top_comment',
                                   style: FlutterFlowTheme.of(context)
@@ -470,7 +514,8 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                                   ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Container(
                             width: double.infinity,
                             height: 150,
@@ -502,11 +547,11 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: const AlignmentDirectional(-1, 0),
+                                        alignment:
+                                            const AlignmentDirectional(-1, 0),
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0, 5, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 5, 0, 0),
                                           child: Text(
                                             'Item name',
                                             textAlign: TextAlign.center,
@@ -521,11 +566,11 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: const AlignmentDirectional(-1, 0),
+                                        alignment:
+                                            const AlignmentDirectional(-1, 0),
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0, 5, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 5, 0, 0),
                                           child: Text(
                                             'price',
                                             textAlign: TextAlign.center,
@@ -569,38 +614,42 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                             ),
                       ),
                       const SizedBox(height: 10),
+                      //display similar posts here
+                      isLoading
+                      ? CircularProgressIndicator()
+                      :
                       GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
                           childAspectRatio: 0.7,
                         ),
-                        itemCount: 20, // Adjust as needed
+                        itemCount: recommendedPosts.length, // Adjust as needed
                         itemBuilder: (context, index) {
-                          final imageUrl =
-                              'https://picsum.photos/seed/${index * 100 + 41}/600';
-
-                          return GestureDetector(
-                            onTap: () {
-                              // Navigate to a new PostViewWidget
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const PostViewWidget(),
-                                ),
-                              );
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                imageUrl,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          );
+                                final post = recommendedPosts[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PostViewWidget(
+                                          postId: post.id,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      post.imageUrl,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                );
                         },
                       ),
                     ],

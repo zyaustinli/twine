@@ -7,11 +7,15 @@ import 'package:flutter/material.dart';
 
 import 'search_results_model.dart';
 export 'search_results_model.dart';
-import '../../../classes/post_class.dart';
+import '../../../classes/post_view_class.dart';
 import '../../../classes/product_class.dart';
 import '../../../classes/user_class.dart';
 import '../../../components/product_widget.dart';
 import '../../../components/user_list_widget.dart';
+
+import '../../catalog/singleview/singleview_widget.dart';
+import '../../catalog/post_view/post_view_widget.dart';
+
 
 class SearchResultsWidget extends StatefulWidget {
   final String initialQuery;
@@ -267,6 +271,14 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                       product: filteredProducts[index],
                                       onTap: () {
                                         //should create a singleview page, and push the product id so that it can retrieve product data from firebase
+                                        Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SingleviewWidget(
+                                            productId: filteredProducts[index].id,
+                                          ),
+                                        ),
+                                      );
                                       });
                                 },
                               ),
@@ -288,7 +300,15 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      //navigate to post_view page and pass ni data again
+                                      //navigate to post_view page and pass in data again
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => PostViewWidget(
+                                            
+                                          ),
+                                        ),
+                                      );
                                     },
                                     child: Image.network(
                                       filteredPosts[index].imageUrl,
@@ -300,18 +320,17 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                           ListView.builder(
                             padding: EdgeInsets.zero,
                             itemCount: filteredUsers.length,
-                            
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 5),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    5, 0, 0, 5),
                                 child: UserListWidget(
-                                user: filteredUsers[index],
-                                onTap: () {
-                                  //should take you to userprofile page, passing in id so taht it can retrieve user data from firebase
-                                },
-                              ),
+                                  user: filteredUsers[index],
+                                  onTap: () {
+                                    //should take you to userprofile page, passing in id so taht it can retrieve user data from firebase
+                                  },
+                                ),
                               );
-                              
                             },
                           ),
                         ],

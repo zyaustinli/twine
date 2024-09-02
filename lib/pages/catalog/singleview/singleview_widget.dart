@@ -17,7 +17,9 @@ export 'singleview_model.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 
 class SingleviewWidget extends StatefulWidget {
-  const SingleviewWidget({super.key});
+  final String productId;
+
+  const SingleviewWidget({Key? key, required this.productId}) : super(key: key); //need to eventually use productID to actaully fetch product data from firebase
 
   @override
   State<SingleviewWidget> createState() => _SingleviewWidgetState();
