@@ -16,7 +16,6 @@ import '../../../components/user_list_widget.dart';
 import '../../catalog/singleview/singleview_widget.dart';
 import '../../catalog/post_view/post_view_widget.dart';
 
-
 class SearchResultsWidget extends StatefulWidget {
   final String initialQuery;
 
@@ -272,13 +271,15 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                       onTap: () {
                                         //should create a singleview page, and push the product id so that it can retrieve product data from firebase
                                         Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => SingleviewWidget(
-                                            productId: filteredProducts[index].id,
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                SingleviewWidget(
+                                              productId:
+                                                  filteredProducts[index].id,
+                                            ),
                                           ),
-                                        ),
-                                      );
+                                        );
                                       });
                                 },
                               ),
@@ -304,9 +305,8 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => PostViewWidget(
-                                            
-                                          ),
+                                          builder: (context) =>
+                                              PostViewWidget(postId: "0"),
                                         ),
                                       );
                                     },

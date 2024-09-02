@@ -40,8 +40,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Swipe',
           path: '/swipe',
-          builder: (context, params) =>
-              params.isEmpty ? const NavBarPage(initialPage: 'Swipe') : const SwipeWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'Swipe')
+              : const SwipeWidget(),
         ),
         FFRoute(
           name: 'catalog',
@@ -95,8 +96,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'cart',
           path: '/cart',
-          builder: (context, params) =>
-              params.isEmpty ? const NavBarPage(initialPage: 'cart') : const CartWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'cart')
+              : const CartWidget(),
         ),
         FFRoute(
           name: 'checkout',
@@ -111,15 +113,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'inbox',
           path: '/inbox',
-          builder: (context, params) =>
-              params.isEmpty ? const NavBarPage(initialPage: 'inbox') : const InboxWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'inbox')
+              : const InboxWidget(),
         ),
         FFRoute(
           name: 'post_view',
           path: '/postView',
           builder: (context, params) => const NavBarPage(
             initialPage: '',
-            page: PostViewWidget(),
+            page: PostViewWidget(postId: "0"),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
@@ -285,7 +288,8 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() =>
+      const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

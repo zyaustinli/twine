@@ -2,15 +2,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
-
-import '../post_view/post_view_widget.dart'; 
-
+import '../post_view/post_view_widget.dart';
 
 import 'catalog_model.dart';
 export 'catalog_model.dart';
 
 import 'package:redthread/pages/catalog/search/search_widget.dart';
-
 
 class CatalogWidget extends StatefulWidget {
   const CatalogWidget({super.key});
@@ -100,55 +97,57 @@ class _CatalogWidgetState extends State<CatalogWidget> {
                                 ),
                                 shape: BoxShape.rectangle,
                               ),
-                              child: GestureDetector( 
-                            onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const SearchWidget()),
-          );
-        },
-        child: AbsorbPointer(
-                              child: TextFormField(
-                                controller: _model.textController,
-                                focusNode: _model.textFieldFocusNode,
-                                autofocus: false,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Search',
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .bodySmall
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SearchWidget()),
+                                  );
+                                },
+                                child: AbsorbPointer(
+                                  child: TextFormField(
+                                    controller: _model.textController,
+                                    focusNode: _model.textFieldFocusNode,
+                                    autofocus: false,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Search',
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodySmall
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0,
+                                          ),
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            fontSize: 12,
+                                            letterSpacing: 0,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      errorBorder: InputBorder.none,
+                                      focusedErrorBorder: InputBorder.none,
+                                      prefixIcon: const Icon(
+                                        Icons.search_sharp,
                                       ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        fontSize: 12,
-                                        letterSpacing: 0,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
-                                  prefixIcon: const Icon(
-                                    Icons.search_sharp,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          fontSize: 12,
+                                          letterSpacing: 0,
+                                        ),
+                                    validator: _model.textControllerValidator
+                                        .asValidator(context),
                                   ),
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      fontSize: 12,
-                                      letterSpacing: 0,
-                                    ),
-                                validator: _model.textControllerValidator
-                                    .asValidator(context),
                               ),
-        ),
-                            ),
                             ),
                           ],
                         ),
@@ -156,8 +155,7 @@ class _CatalogWidgetState extends State<CatalogWidget> {
                     ),
                   ),
                 ),
-                
-                
+
                 /*
                 
                 Padding(
@@ -242,59 +240,63 @@ class _CatalogWidgetState extends State<CatalogWidget> {
 
               */
 
-
                 Expanded(
-  child: Padding(
-    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-    child: GridView.builder(
-      padding: EdgeInsets.zero,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 0.7,
-      ),
-      scrollDirection: Axis.vertical,
-      itemCount: 16, // Replace with your actual item count
-      itemBuilder: (context, index) {
-        // Replace this with your actual post data
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                    child: GridView.builder(
+                      padding: EdgeInsets.zero,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 0.7,
+                      ),
+                      scrollDirection: Axis.vertical,
+                      itemCount: 16, // Replace with your actual item count
+                      itemBuilder: (context, index) {
+                        // Replace this with your actual post data
 
-        //if needed later, post_ids
-        //final postId = 'post_$index';
+                        //if needed later, post_ids
+                        //final postId = 'post_$index';
 
-        //rn just using random images, will use image from backend later
-        final imageUrl = 'https://picsum.photos/seed/${index * 100 + 41}/600';
-        
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const PostViewWidget(), //will need to pass in backend data later, such as images, comments, post info, etc
-              ),
-            );
-          },
-          child: Container(
-            width: 100,
-            height: 180,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                imageUrl,
-                width: 300,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        );
-      },
-    ),
-  ),
-),
+                        //rn just using random images, will use image from backend later
+                        final imageUrl =
+                            'https://picsum.photos/seed/${index * 100 + 41}/600';
+
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const PostViewWidget(
+                                    postId:
+                                        "0"), //will need to pass in backend data later, such as images, comments, post info, etc
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 100,
+                            height: 180,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                imageUrl,
+                                width: 300,
+                                height: 200,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
