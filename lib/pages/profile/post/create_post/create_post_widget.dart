@@ -25,6 +25,8 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  List<String> selectedImages = [];
+
   @override
   void initState() {
     super.initState();
@@ -93,7 +95,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const FinalizePostWidget()),
+                          builder: (context) => const FinalizePostWidget(
+                                selectedImages: [],
+                              )),
                     );
                   },
                 ),
@@ -166,24 +170,42 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                   ),
                                   scrollDirection: Axis.vertical,
                                   children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/762/600',
-                                        width: 300,
-                                        height: 200,
-                                        fit: BoxFit.cover,
+                                    GestureDetector(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          'https://picsum.photos/seed/762/600',
+                                          width: 300,
+                                          height: 200,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
+                                      onTap: () {
+                                        if (!selectedImages.contains(
+                                            'https://picsum.photos/seed/762/600')) {
+                                          selectedImages.add(
+                                              'https://picsum.photos/seed/762/600');
+                                        }
+                                      },
                                     ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/736/600',
-                                        width: 300,
-                                        height: 200,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                    GestureDetector(
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Image.network(
+                                            'https://picsum.photos/seed/736/600',
+                                            width: 300,
+                                            height: 200,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          if (!selectedImages.contains(
+                                              'https://picsum.photos/seed/736/600')) {
+                                            selectedImages.add(
+                                                'https://picsum.photos/seed/736/600');
+                                          }
+                                        }),
                                   ],
                                 ),
                               ),
