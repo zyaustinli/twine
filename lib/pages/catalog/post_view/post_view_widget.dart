@@ -38,6 +38,8 @@ class _PostViewWidgetState extends State<PostViewWidget> {
 
   }
   Future<void> fetchRecommendedPosts() async {
+    
+    /*
     try {
       // Fetch similar posts from Firestore
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
@@ -62,6 +64,14 @@ class _PostViewWidgetState extends State<PostViewWidget> {
         isLoading = false;
       });
     }
+  */
+  isLoading = false;
+  recommendedPosts =  [
+    Post(id: '1', imageUrl: 'https://picsum.photos/seed/101/600'),
+    Post(id: '2', imageUrl: 'https://picsum.photos/seed/102/600'),
+    // Add more posts...
+  ];
+
   }
 
   @override

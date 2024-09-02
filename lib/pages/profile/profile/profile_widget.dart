@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:redthread/components/create_options_widget.dart';
 import 'package:redthread/index.dart';
 import 'package:redthread/pages/profile/post/create_post/create_post_widget.dart';
@@ -17,9 +18,14 @@ import 'profile_model.dart';
 export 'profile_model.dart';
 
 class ProfileWidget extends StatefulWidget {
-  const ProfileWidget({super.key});
+  final String? userId; //perfrom userId logic in firebase 
+
+const ProfileWidget({Key? key, this.userId})
+      : super(key: key); 
+
 
   @override
+
   State<ProfileWidget> createState() => _ProfileWidgetState();
 }
 
@@ -27,11 +33,16 @@ class _ProfileWidgetState extends State<ProfileWidget>
     with TickerProviderStateMixin {
   late ProfileModel _model;
 
+  //create lists for posts, outfits, collections, and bought items
+
   bool openCreateOptions = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  late String _currentUserId;
 
   Future<DocumentSnapshot> getUser(String userId) async {
     // Replace 'users' with your collection name
@@ -53,6 +64,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
       length: 4,
       initialIndex: 0,
     )..addListener(() => setState(() {}));
+
+      _currentUserId = widget.userId ?? _auth.currentUser?.uid ?? '';
+
   }
 
   @override

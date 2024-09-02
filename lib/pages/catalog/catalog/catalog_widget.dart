@@ -270,7 +270,7 @@ class _CatalogWidgetState extends State<CatalogWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const PostViewWidget(), //will need to pass in backend data later, such as images, comments, post info, etc
+                builder: (context) => const PostViewWidget(postId: "0"), //will need to pass in backend data later, such as images, comments, post info, etc
               ),
             );
           },

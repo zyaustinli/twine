@@ -50,6 +50,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ? const NavBarPage(initialPage: 'catalog')
               : const CatalogWidget(),
         ),
+        /*
         FFRoute(
           name: 'profile',
           path: '/profile',
@@ -60,6 +61,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   page: ProfileWidget(),
                 ),
         ),
+        */
         /*
         FFRoute(
           name: 'singleview',
@@ -114,6 +116,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) =>
               params.isEmpty ? const NavBarPage(initialPage: 'inbox') : const InboxWidget(),
         ),
+        /*
         FFRoute(
           name: 'post_view',
           path: '/postView',
@@ -122,6 +125,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             page: PostViewWidget(),
           ),
         )
+        */
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
     );
