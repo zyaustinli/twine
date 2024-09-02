@@ -1,3 +1,4 @@
+import 'package:redthread/index.dart';
 import 'package:redthread/pages/catalog/search_results/search_database_service.dart';
 
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -305,8 +306,9 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              PostViewWidget(postId: "0"),
+                                          builder: (context) => PostViewWidget(
+                                            postId: filteredPosts[index].id,
+                                          ),
                                         ),
                                       );
                                     },
@@ -328,6 +330,14 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget>
                                   user: filteredUsers[index],
                                   onTap: () {
                                     //should take you to userprofile page, passing in id so taht it can retrieve user data from firebase
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ProfileWidget(
+                                          userId: filteredUsers[index].id,
+                                        ),
+                                      ),
+                                    );
                                   },
                                 ),
                               );
