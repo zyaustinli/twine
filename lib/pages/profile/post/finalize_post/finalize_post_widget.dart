@@ -108,45 +108,57 @@ class _FinalizePostWidgetState extends State<FinalizePostWidget> {
                       child: Container(
                         width: double.infinity,
                         height: 158,
-                        child: CarouselSlider(
-                          items: [
-                            ClipRRect(
+                        child: CarouselSlider.builder(
+                          itemCount: widget.selectedImages.length,
+                          itemBuilder: (context, index, realIndex) {
+                            return ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: Image.network(
-                                'https://picsum.photos/seed/835/600',
+                                widget.selectedImages[index],
                                 width: 300,
                                 height: 200,
                                 fit: BoxFit.cover,
                               ),
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                'https://picsum.photos/seed/143/600',
-                                width: 300,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                'https://picsum.photos/seed/908/600',
-                                width: 300,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                'https://picsum.photos/seed/572/600',
-                                width: 300,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ],
+                            );
+                          },
+                          // items: [
+                          //   ClipRRect(
+                          //     borderRadius: BorderRadius.circular(8),
+                          //     child: Image.network(
+                          //       'https://picsum.photos/seed/835/600',
+                          //       width: 300,
+                          //       height: 200,
+                          //       fit: BoxFit.cover,
+                          //     ),
+                          //   ),
+                          //   ClipRRect(
+                          //     borderRadius: BorderRadius.circular(8),
+                          //     child: Image.network(
+                          //       'https://picsum.photos/seed/143/600',
+                          //       width: 300,
+                          //       height: 200,
+                          //       fit: BoxFit.cover,
+                          //     ),
+                          //   ),
+                          //   ClipRRect(
+                          //     borderRadius: BorderRadius.circular(8),
+                          //     child: Image.network(
+                          //       'https://picsum.photos/seed/908/600',
+                          //       width: 300,
+                          //       height: 200,
+                          //       fit: BoxFit.cover,
+                          //     ),
+                          //   ),
+                          //   ClipRRect(
+                          //     borderRadius: BorderRadius.circular(8),
+                          //     child: Image.network(
+                          //       'https://picsum.photos/seed/572/600',
+                          //       width: 300,
+                          //       height: 200,
+                          //       fit: BoxFit.cover,
+                          //     ),
+                          //   ),
+                          // ],
                           carouselController: _model.carouselController ??=
                               CarouselController(),
                           options: CarouselOptions(
@@ -285,6 +297,7 @@ class _FinalizePostWidgetState extends State<FinalizePostWidget> {
                                             );
                                           },
                                         );
+                                        print(widget.selectedImages);
                                       },
                                     ),
                                   ),

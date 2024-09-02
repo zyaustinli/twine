@@ -95,8 +95,8 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const FinalizePostWidget(
-                                selectedImages: [],
+                          builder: (context) => FinalizePostWidget(
+                                selectedImages: selectedImages,
                               )),
                     );
                   },
