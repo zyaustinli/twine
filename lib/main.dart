@@ -106,6 +106,9 @@ class _NavBarPageState extends State<NavBarPage> {
     _currentPage = widget.page;
   }
 
+  //NEED TO GET CURRENT USER'S ID!!!!!
+
+
   @override
   Widget build(BuildContext context) {
     final tabs = {
@@ -113,7 +116,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'catalog': const CatalogWidget(),
       'cart': const CartWidget(),
       'inbox': const InboxWidget(),
-      'profile': const ProfileWidget(),
+      'profile': const ProfileWidget(userId: '1'), //TEMPORARY
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
