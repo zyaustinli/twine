@@ -1,3 +1,5 @@
+import 'package:redthread/index.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -24,7 +26,6 @@ class PostViewWidget extends StatefulWidget {
 class _PostViewWidgetState extends State<PostViewWidget> {
   late PostViewModel _model;
 
-
   List<Post> recommendedPosts = [];
   bool isLoading = true;
 
@@ -35,10 +36,9 @@ class _PostViewWidgetState extends State<PostViewWidget> {
     super.initState();
     _model = createModel(context, () => PostViewModel());
     fetchRecommendedPosts();
-
   }
+
   Future<void> fetchRecommendedPosts() async {
-    
     /*
     try {
       // Fetch similar posts from Firestore
@@ -65,13 +65,12 @@ class _PostViewWidgetState extends State<PostViewWidget> {
       });
     }
   */
-  isLoading = false;
-  recommendedPosts =  [
-    Post(id: '1', imageUrl: 'https://picsum.photos/seed/101/600'),
-    Post(id: '2', imageUrl: 'https://picsum.photos/seed/102/600'),
-    // Add more posts...
-  ];
-
+    isLoading = false;
+    recommendedPosts = [
+      Post(id: '1', imageUrl: 'https://picsum.photos/seed/101/600'),
+      Post(id: '2', imageUrl: 'https://picsum.photos/seed/102/600'),
+      // Add more posts...
+    ];
   }
 
   @override
@@ -230,18 +229,28 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                         child: Padding(
                           padding:
                               const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
-                          child: Text(
-                            'zeyiiii',
-                            maxLines: 1,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  fontSize: 16,
-                                  letterSpacing: 0,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          ),
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProfileWidget(
+                                        userId: 'KwOD1Lh9ChPSRgNNgTOn'),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'zeyiiii',
+                                maxLines: 1,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 16,
+                                      letterSpacing: 0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                              )),
                         ),
                       ),
                       Padding(
@@ -626,20 +635,20 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                       const SizedBox(height: 10),
                       //display similar posts here
                       isLoading
-                      ? CircularProgressIndicator()
-                      :
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 0.7,
-                        ),
-                        itemCount: recommendedPosts.length, // Adjust as needed
-                        itemBuilder: (context, index) {
+                          ? CircularProgressIndicator()
+                          : GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                childAspectRatio: 0.7,
+                              ),
+                              itemCount:
+                                  recommendedPosts.length, // Adjust as needed
+                              itemBuilder: (context, index) {
                                 final post = recommendedPosts[index];
                                 return GestureDetector(
                                   onTap: () {
@@ -660,8 +669,8 @@ class _PostViewWidgetState extends State<PostViewWidget> {
                                     ),
                                   ),
                                 );
-                        },
-                      ),
+                              },
+                            ),
                     ],
                   ),
                 ),
