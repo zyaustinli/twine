@@ -80,7 +80,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: FutureBuilder<DocumentSnapshot>(
-            future: getUser('KwOD1Lh9ChPSRgNNgTOn'),
+            future: getUser(_currentUserId),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());

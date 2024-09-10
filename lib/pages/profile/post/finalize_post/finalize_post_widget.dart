@@ -34,10 +34,11 @@ class _FinalizePostWidgetState extends State<FinalizePostWidget> {
     'https://picsum.photos/seed/835/600'
   ];
 
-  void addImage(String imageUrl) {
+  void addImage(String imageUrl, String productId) {
     setState(() {
       // Add new image at the center of the container
       itemImages.add(imageUrl);
+      //use productId later to create link from post to product
     });
   }
 
