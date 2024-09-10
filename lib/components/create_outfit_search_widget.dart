@@ -6,7 +6,7 @@ import '../components/product_widget.dart';
 import '../classes/product_class.dart';
 
 class CreateOutfitSearchWidget extends StatefulWidget {
-  final Function(String imageUrl) onImageSelected;
+  final Function(String imageUrl, String productId) onImageSelected;
 
   const CreateOutfitSearchWidget({
     Key? key,
@@ -127,7 +127,7 @@ class _CreateOutfitSearchWidgetState extends State<CreateOutfitSearchWidget> {
                       return ProductWidget(
                         product: product,
                         onTap: () {
-                          widget.onImageSelected(product.imageUrl);
+                          widget.onImageSelected(product.imageUrl, product.id);
                           Navigator.pop(context);
                         },
                       );

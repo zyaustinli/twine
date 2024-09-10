@@ -33,6 +33,7 @@ class CreateOutfitSearchModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  @override
   void dispose() {
     textController.dispose();
     textFieldFocusNode.dispose();

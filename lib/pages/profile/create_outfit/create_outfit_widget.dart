@@ -15,6 +15,7 @@ import 'create_outfit_model.dart';
 export 'create_outfit_model.dart';
 
 import './../../../components/create_outfit_search_widget.dart';
+import 'outfit_manager.dart';
 
 class CreateOutfitWidget extends StatefulWidget {
   const CreateOutfitWidget({super.key});
@@ -23,19 +24,22 @@ class CreateOutfitWidget extends StatefulWidget {
   State<CreateOutfitWidget> createState() => _CreateOutfitWidgetState();
 }
 
+
 class DraggableImage {
   final String url;
+  final String productId;
   Offset position;
   ui.Image? image;
   List<List<bool>>? hitMap;
   bool isDragging = false;
   double scale = 1.0;
-  DraggableImage(this.url, this.position);
+  
+  DraggableImage(this.url, this.productId, this.position);
 }
 
 class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
   late CreateOutfitModel _model;
-
+  final GlobalKey stackKey = GlobalKey();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<DraggableImage> draggableImages = [];
   String? draggedImageUrl;
@@ -45,7 +49,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
   Color trashIconColor = Colors.black;
 
   Color backgroundColor = Colors.white; // Default background color
-  double _lastScale = 1.0;
+  final double _lastScale = 1.0;
 
   @override
   void initState() {
@@ -114,33 +118,34 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
     }
   }
 
-  void addImage(String imageUrl) async {
-    print("Adding image: $imageUrl");
-    try {
-      final completer = Completer<ui.Image>();
-      final imageStream = NetworkImage(imageUrl).resolve(ImageConfiguration());
-      imageStream.addListener(ImageStreamListener((info, _) {
-        completer.complete(info.image);
-      }));
+  void addImage(String imageUrl, String productId) async {
+  print("Adding image: $imageUrl with productId: $productId");
+  try {
+    final completer = Completer<ui.Image>();
+    final imageStream = NetworkImage(imageUrl).resolve(const ImageConfiguration());
+    imageStream.addListener(ImageStreamListener((info, _) {
+      completer.complete(info.image);
+    }));
 
-      final image = await completer.future;
-      final hitMap = await computeHitMap(image);
+    final image = await completer.future;
+    final hitMap = await computeHitMap(image);
 
-      setState(() {
-        draggableImages.add(DraggableImage(
-          imageUrl,
-          Offset(MediaQuery.of(context).size.width / 2 - 100,
-              MediaQuery.of(context).size.height * 0.375 - 100),
-        )
-          ..image = image
-          ..hitMap = hitMap
-          ..scale = 1.0); // Initialize scale
-      });
-      print("Image added. Total images: ${draggableImages.length}");
-    } catch (e) {
-      print("Error adding image: $e");
-    }
+    setState(() {
+      draggableImages.add(DraggableImage(
+        imageUrl,
+        productId,
+        Offset(MediaQuery.of(context).size.width / 2 - 100,
+            MediaQuery.of(context).size.height * 0.375 - 100),
+      )
+        ..image = image
+        ..hitMap = hitMap
+        ..scale = 1.0); // Initialize scale
+    });
+    print("Image added. Total images: ${draggableImages.length}");
+  } catch (e) {
+    print("Error adding image: $e");
   }
+}
 
   void moveImageToTop(String imageUrl) {
     setState(() {
@@ -179,7 +184,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
     final int endY = (centerY + scaledRadius).clamp(0, imageHeight - 1).round();
 
     print("Checking area: ($startX, $startY) to ($endX, $endY)");
-    print("Image size: ${imageWidth}x${imageHeight}");
+    print("Image size: ${imageWidth}x$imageHeight");
     print(
         "HitMap size: ${draggableImage.hitMap!.length}x${draggableImage.hitMap![0].length}");
 
@@ -215,7 +220,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
               colorPickerWidth: 300,
               pickerAreaHeightPercent: 0.7,
               enableAlpha: false,
-              labelTypes: [],
+              labelTypes: const [],
               displayThumbColor: false,
               paletteType: PaletteType.hsl,
               pickerAreaBorderRadius: const BorderRadius.only(
@@ -265,9 +270,10 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
+              SizedBox(
                 height: MediaQuery.sizeOf(context).height * 0.85,
                 child: Stack(
+                  key: stackKey,
                   children: [
                     Container(
                       width: double.infinity,
@@ -360,7 +366,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                 ),
                               ),
                             );
-                          }).toList(),
+                          }),
                           if (isImageBeingDragged)
                             Positioned(
                               bottom: 20,
@@ -381,18 +387,18 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                         if (draggedImageUrl == null)
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       15, 0, 0, 0),
                                   child: FlutterFlowIconButton(
                                     borderRadius: 24,
                                     borderWidth: 1,
                                     buttonSize: 50,
-                                    fillColor: Color(0xB214181B),
+                                    fillColor: const Color(0xB214181B),
                                     icon: Icon(
                                       Icons.chevron_left,
                                       color: FlutterFlowTheme.of(context)
@@ -415,7 +421,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                   borderRadius: 24,
                                   borderWidth: 1,
                                   buttonSize: 50,
-                                  fillColor: Color(0xB214181B),
+                                  fillColor: const Color(0xB214181B),
                                   icon: FaIcon(
                                     FontAwesomeIcons.pencilAlt,
                                     color: FlutterFlowTheme.of(context)
@@ -425,13 +431,13 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                   onPressed: _showColorPicker,
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       15, 0, 10, 0),
                                   child: FlutterFlowIconButton(
                                     borderRadius: 24,
                                     borderWidth: 1,
                                     buttonSize: 50,
-                                    fillColor: Color(0xB214181B),
+                                    fillColor: const Color(0xB214181B),
                                     icon: Icon(
                                       Icons.add,
                                       color: FlutterFlowTheme.of(context)
@@ -443,7 +449,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                         context: context,
                                         isScrollControlled: true,
                                         builder: (BuildContext context) {
-                                          return Container(
+                                          return SizedBox(
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -470,20 +476,20 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                 height: MediaQuery.sizeOf(context).height * 0.10,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
-                  border: Border(top: BorderSide(color: Colors.black)),
+                  border: const Border(top: BorderSide(color: Colors.black)),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
+                                const EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                             child: FFButtonWidget(
                               onPressed: () {
                                 print('Button pressed ...');
@@ -499,9 +505,9 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                 width: 100,
                                 height: 50,
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                    const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                 iconPadding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                    const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
@@ -522,7 +528,7 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                                const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
                             child: FlutterFlowIconButton(
                               borderColor:
                                   FlutterFlowTheme.of(context).primaryText,
@@ -537,8 +543,12 @@ class _CreateOutfitWidgetState extends State<CreateOutfitWidget> {
                                     .secondaryBackground,
                                 size: 34,
                               ),
-                              onPressed: () {
-                                print('IconButton pressed ...');
+                              onPressed: () async {
+                                await OutfitManager.saveOutfit(draggableImages, backgroundColor, stackKey);
+                                // You can add a snackbar or navigation here to indicate successful saving
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Outfit saved successfully!')),
+                                );
                               },
                             ),
                           ),
