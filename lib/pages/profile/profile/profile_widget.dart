@@ -18,14 +18,11 @@ import 'profile_model.dart';
 export 'profile_model.dart';
 
 class ProfileWidget extends StatefulWidget {
-  final String? userId; //perfrom userId logic in firebase 
+  const ProfileWidget({Key? key, required this.userId}) : super(key: key);
 
-const ProfileWidget({Key? key, this.userId})
-      : super(key: key); 
-
+  final String? userId; //perfrom userId logic in firebase
 
   @override
-
   State<ProfileWidget> createState() => _ProfileWidgetState();
 }
 
@@ -65,8 +62,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
       initialIndex: 0,
     )..addListener(() => setState(() {}));
 
-      _currentUserId = widget.userId ?? _auth.currentUser?.uid ?? '';
-
+    _currentUserId = widget.userId ?? _auth.currentUser?.uid ?? '';
   }
 
   @override
